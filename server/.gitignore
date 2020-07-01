@@ -1,0 +1,27 @@
+# Project dependencies
+.nyc_output/
+node_modules/
+false/
+
+# JavaScript files
+out/
+
+# NPM Debug Log
+npm-debug.log
+
+# Typescrit compilation #
+*.js.map
+*.js
+
+
+# Keep test files
+!systemjs.config.js
+!karma.conf.js
+!karma-test-shim.js
+!systemjs.config.extras.js
+!tslint.json
+!tsconfig.json
+!package-lock.json
+
+# Exclude dotenv file
+*.env

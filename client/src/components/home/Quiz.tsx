@@ -12,7 +12,9 @@ const Quiz: React.FunctionComponent = () => {
             <div className="chat-screen">
                 <Conversation
                     className="conversation"
-                    onSubmit={() => {}}
+                    onSubmit={(Response: any) => {
+                        console.log(Response);
+                    }}
                     chatOptions={{
                         thankTheUser: ['identifier', 'feedbackType'],
                         introText: 'Hi there. Lets leave some feedback! To edit any of your responses, just click on them.',

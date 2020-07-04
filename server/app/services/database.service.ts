@@ -14,7 +14,7 @@ export class DatabaseService {
         password: CONSTANTS.DB_PASSWORD,
         port: CONSTANTS.DB_PORT,
         host: CONSTANTS.DB_HOST,
-        keepAlive: true,
+        keepAlive: false,
     };
 
     private pool: Pool = new Pool(this.connectionConfig);
@@ -34,5 +34,29 @@ export class DatabaseService {
 
     async getAllFromTable(tableName: string): Promise<QueryResult> {
         return this.pool.query(`SELECT * FROM ${this.SCHEMA_NAME}.${tableName};`);
+    }
+
+    /* CONTENT */
+
+    async getAllQuestionsByEventKey(eventKey: string): Promise<QueryResult> {
+        return this.pool.query(`
+        SELECT qn.question_id, qn.question_label, qn.correct_answer, qn.quiz_id 
+        FROM ${this.SCHEMA_NAME}.Question qn, ${this.SCHEMA_NAME}.Quiz qz, ${this.SCHEMA_NAME}.Room r
+        WHERE r.event_key = '${eventKey}'
+        AND r.room_id = qz.room_id
+        AND qn.quiz_id = qz.quiz_id
+        ORDER BY qn.question_id`);
+    }
+
+    async getAllChoicesByQuestion(questionId: string): Promise<QueryResult> {
+        return this.pool.query(`
+        SELECT * FROM ${this.SCHEMA_NAME}.Choice c
+        WHERE c.question_id = '${questionId}';`);
+    }
+
+    async createAnswer(questionId: string, participantId: string, answerLabel: string) {
+        return this.pool.query(`
+        INSERT INTO ${this.SCHEMA_NAME}.AnswerEntry (question_id, participant_id, answer_label) 
+        VALUES (${questionId},${participantId},'${answerLabel}');`);
     }
 }

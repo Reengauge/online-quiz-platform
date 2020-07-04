@@ -4,6 +4,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import { inject, injectable } from 'inversify';
 import * as logger from 'morgan';
+import { DatabaseController } from './controllers/database.controller';
 import { IndexController } from './controllers/index.controller';
 import Types from './types';
 
@@ -14,6 +15,7 @@ export class Application {
 
     constructor(
         @inject(Types.IndexController) private indexController: IndexController,
+        @inject(Types.DatabaseController) private databaseController: DatabaseController,
     ) {
         this.app = express();
 
@@ -32,7 +34,8 @@ export class Application {
     }
 
     bindRoutes(): void {
-        this.app.use('/', this.indexController.router);
+        this.app.use('/api/index', this.indexController.router);
+        this.app.use('/api/db', this.databaseController.router);
         this.errorHandling();
     }
 

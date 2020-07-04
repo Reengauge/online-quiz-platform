@@ -3,4 +3,6 @@ export default {
     Application: Symbol('Application'),
     IndexService: Symbol('IndexService'),
     IndexController: Symbol('IndexController'),
+    DatabaseService: Symbol('DatabaseService'),
+    DatabaseController: Symbol('DatabaseController')
 };

@@ -1,3 +1,24 @@
-.chat-screen {
+/* cf-chat scrollable {
+    height: 100%;
+    width: 100%;
+} */
+
+.conversation {
     height: 1000px;
+}
+
+.chat-screen {
+    height: 500px;
+}
+
+.chat-header {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.chat-header h3 {
+    padding: 20px 20px 0px;
+}
+
+.chat-header p {
+    padding: 0px 20px;
 }

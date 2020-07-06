@@ -5,7 +5,10 @@ import '../stylesheets/quiz.css';
 const Quiz: React.FunctionComponent = () => {
     return (
         <div>
-            <div className="chat-header" style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999 }}>
+            <div
+                className="chat-header"
+                style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999, borderRadius: '10px 10px 0px 0px' }}
+            >
                 <h3>Haihan's React Class 425</h3>
                 <p>By Haihan</p>
             </div>

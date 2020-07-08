@@ -1,6 +1,19 @@
 import { Conversation, Select, Question, Option } from 'react-conversation-form';
 import React from 'react';
 import '../stylesheets/quiz.css';
+import axios from 'axios';
+
+const endpoint = `http://localhost:3000/api/rooms/123456/questions`;
+
+const sendGetRequest = () => {
+    return axios({
+        url: endpoint,
+        method: 'get',
+    }).then((response) => {
+        console.log(response);
+        return response.data;
+    });
+};
 
 const Quiz: React.FunctionComponent = () => {
     return (
@@ -11,6 +24,9 @@ const Quiz: React.FunctionComponent = () => {
             >
                 <h3>Haihan's React Class 425</h3>
                 <p>By Haihan</p>
+            </div>
+            <div>
+                <button onClick={sendGetRequest}>Get Questions for quiz 1</button>
             </div>
             <div className="chat-screen">
                 <Conversation

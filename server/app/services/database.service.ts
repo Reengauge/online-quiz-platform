@@ -7,7 +7,6 @@ import { schema } from '../queries/schema';
 
 @injectable()
 export class DatabaseService {
-
     connectionConfig: ConnectionConfig = {
         user: CONSTANTS.DB_USER,
         database: CONSTANTS.DB_NAME,
@@ -40,7 +39,7 @@ export class DatabaseService {
 
     async getAllQuestionsByEventKey(eventKey: string): Promise<QueryResult> {
         return this.pool.query(`
-        SELECT qn.question_id, qn.question_label, qn.correct_answer, qn.quiz_id 
+        SELECT qn.question_id, qn.question_label, qn.correct_answer, qn.quiz_id
         FROM ${this.SCHEMA_NAME}.Question qn, ${this.SCHEMA_NAME}.Quiz qz, ${this.SCHEMA_NAME}.Room r
         WHERE r.event_key = '${eventKey}'
         AND r.room_id = qz.room_id

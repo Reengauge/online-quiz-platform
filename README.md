@@ -1,11 +1,24 @@
 # Online Quiz Platform
 A tool for educators to engage their students throughout class.
 
+## Basic Database Setup (Dev Environment)
+### Method #1 - IP Whitelist (faster, less optimal)
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
+2. After selecting the right project, navigate to SQL
+3. Select the right instance
+4. Under Connections -> Authorized networks, add your IP Address
+5. Don't forget to upload your .env file to /server
+
+### Method #2 - Cloud SQL Proxy (slower, better)
+1. Install the [gcloud command-line tool](https://cloud.google.com/sdk/docs#install_the_latest_cloud_sdk_version)
+2. Install the [Cloud SQL Proxy client](https://cloud.google.com/sql/docs/postgres/quickstart-proxy-test)
+3. Don't forget to upload your .env file to /server
+
 ## Basic Server Commands
 Prerequisites: 
 1. Have Node.js installed on your machine 
-2. Navigate to /server
-3. Fill in missing database keys in .env file (DATABASE_URL, DATABASE_NAME, DATABASE_COLLECTION)
+2. Make sure you've uploaded the .env file to /server
+3. Make sure you're in /server before running the next commands
 ### Server Setup
 ```console
 $ npm install

@@ -7,3 +7,6 @@ package-lock.json
 
 # Code Coverage Folder
 coverage/
+
+# Google Cloud Tools
+cloud_sql_proxy

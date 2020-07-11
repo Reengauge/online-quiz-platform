@@ -8,7 +8,6 @@ CREATE TABLE Room (
 	room_id			SERIAL,
 	event_key		CHAR(6)			UNIQUE NOT NULL,
 	room_name		VARCHAR(64)		NOT NULL,
-	description		VARCHAR(255),
 	presenter_id	VARCHAR(64)		NOT NULL,
 	start_time		DATE			DEFAULT CURRENT_DATE,
 	end_time		DATE			DEFAULT CURRENT_DATE + INTERVAL '1 month'
@@ -19,6 +18,7 @@ CREATE TABLE Room (
 CREATE TABLE Quiz (
 	quiz_id			SERIAL,
 	max_duration	INTEGER,
+	title			VARCHAR(255)	NOT NULL,
 	room_id			INTEGER			NOT NULL,
 	PRIMARY KEY (quiz_id),
 	FOREIGN KEY (room_id) REFERENCES Room(room_id)

@@ -9,6 +9,7 @@ import Types from './types';
 import { RoomController } from './controllers/room.controller';
 import { ChoiceController } from './controllers/choice.controller';
 import { AnswerController } from './controllers/answer.controller';
+import { QuestionController } from './controllers/question.controller';
 
 @injectable()
 export class Application {
@@ -20,6 +21,7 @@ export class Application {
         @inject(Types.RoomController) private roomController: RoomController,
         @inject(Types.ChoiceController) private choiceController: ChoiceController,
         @inject(Types.AnswerController) private answerController: AnswerController,
+        @inject(Types.QuestionController) private questionController: QuestionController,
     ) {
         this.app = express();
 
@@ -42,6 +44,7 @@ export class Application {
         this.app.use('/api/rooms', this.roomController.router);
         this.app.use('/api/choices', this.choiceController.router);
         this.app.use('/api/answers', this.answerController.router);
+        this.app.use('/api/questions', this.questionController.router);
         this.errorHandling();
     }
 

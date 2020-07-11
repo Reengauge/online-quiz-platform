@@ -6,7 +6,7 @@ CREATE SCHEMA QUIZ_DB;
 
 CREATE TABLE Room (
 	room_id			SERIAL,
-	event_key		CHAR(6)			UNIQUE NOT NULL,
+	event_key		CHAR(8)			UNIQUE NOT NULL,
 	room_name		VARCHAR(64)		NOT NULL,
 	presenter_id	VARCHAR(64)		NOT NULL,
 	start_time		DATE			DEFAULT CURRENT_DATE,

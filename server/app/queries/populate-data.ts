@@ -1,8 +1,8 @@
 export const data =
 `SET search_path = QUIZ_DB;
 
-INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('123456', 'Physics 101', '21dn9ca82dniad3');
-INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('abcdef', 'Maths 201', '21dn9ca82dniad3');
+INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('12345678', 'Physics 101', '21dn9ca82dniad3');
+INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('abcdefgh', 'Maths 201', '21dn9ca82dniad3');
 
 INSERT INTO Quiz (max_duration, title, room_id) VALUES (300, 'Last Week''s Lecture Recap', 1);
 INSERT INTO Quiz (max_duration, title, room_id) VALUES (360, 'Warm Up Quiz', 2);

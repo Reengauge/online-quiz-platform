@@ -21,20 +21,6 @@ p {
     font-size: 20px;
 }
 
-/* .center-card {
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    color: white;
-    font-family: 'Ubuntu', sans-serif;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: auto;
-    height: auto;
-    background-color: #5444b2;
-} */
-
 .landing-page {
     background: linear-gradient(rgba(84, 68, 178, 0.97), rgba(84, 68, 178, 0.97)), url('../../images/meeting-pic.jpg');
     background-size: cover;

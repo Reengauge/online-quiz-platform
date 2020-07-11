@@ -9,7 +9,6 @@ import Signin from './home/Signin';
 const AppRouter: React.FunctionComponent = () => {
     return (
         <Router history={history}>
-            <Header />
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route exact path="/quiz" component={Quiz} />

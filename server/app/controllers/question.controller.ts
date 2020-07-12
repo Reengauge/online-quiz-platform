@@ -23,7 +23,7 @@ export class QuestionController {
                         questionLabel: question.question_label,
                         quizId: question.quiz_id
                     }));
-                    res.status(HttpStatus.OK).send(questions[0]);
+                    res.status(HttpStatus.CREATED).send(questions[0]);
                 })
                 .catch((e: Error) => {
                     res.status(HttpStatus.BAD_REQUEST).send(e.message);

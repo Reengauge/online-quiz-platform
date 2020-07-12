@@ -34,13 +34,26 @@ describe('RoomController', () => {
           }
         ]
     }
+    const validQuizResponse = {
+        rows: [
+          {
+            quiz_id: 1,
+            max_duration: 120,
+            title: "Dear John",
+            room_id	: "xxxxxxxx"
+          }
+        ]
+    }
 
     beforeEach(async () => {
         const [container, sandbox] = await testingContainer();
         container.rebind(Types.DatabaseService).toConstantValue({
             getAllQuestionsByEventKey: sandbox.stub().resolves(validQuestionResponse),
             generateUniqueEventKey: sandbox.stub().resolves(validEventKey),
-            createRoom: sandbox.stub().resolves(validRoomResponse)
+            createRoom: sandbox.stub().resolves(validRoomResponse),
+            createQuiz: sandbox.stub().resolves(validQuizResponse),
+            getRoomByEventKey: sandbox.stub().resolves(validRoomResponse),
+            getAllQuizzesByEventKey: sandbox.stub().resolves(validQuizResponse)
         });
         databaseService = container.get(Types.DatabaseService);
         app = container.get<Application>(Types.Application).app;
@@ -61,15 +74,52 @@ describe('RoomController', () => {
             });
     });
 
+    it('POST /api/rooms/:eventKey/quizzes should return a quiz', async () => {
+        return supertest(app)
+            .post('/api/rooms/xxxxxxxx/quizzes')
+            .send({ maxDuration: 120, title: "Dear John" })
+            .then((response: any) => {
+                expect(response.statusCode).to.equal(HttpStatus.CREATED);
+                expect(response.body).to.have.property('quizId');
+                expect(response.body).to.have.property('maxDuration');
+                expect(response.body).to.have.property('title');
+                expect(response.body).to.have.property('roomId');
+            });
+    });
+
     it('GET /api/rooms/:eventKey/questions should return a JSON array', async () => {
         databaseService = databaseService;
         return supertest(app)
-            .get('/api/rooms/xxxxxx/questions')
+            .get('/api/rooms/xxxxxxxx/questions')
             .then((response: any) => {
                 expect(response.statusCode).to.equal(HttpStatus.OK);
                 expect(response.body).to.be.a('array');
             });
     });
 
+    it('GET /api/rooms/:eventKey should return a room', async () => {
+        databaseService = databaseService;
+        return supertest(app)
+            .get('/api/rooms/xxxxxxxx')
+            .then((response: any) => {
+                expect(response.statusCode).to.equal(HttpStatus.OK);
+                expect(response.body).to.have.property('roomId');
+                expect(response.body).to.have.property('eventKey');
+                expect(response.body).to.have.property('name');
+                expect(response.body).to.have.property('presenterId');
+                expect(response.body).to.have.property('startTime');
+                expect(response.body).to.have.property('endTime');
+            });
+    });
+
+    it('GET /api/rooms/:eventKey/quizzes should return a JSON array', async () => {
+        databaseService = databaseService;
+        return supertest(app)
+            .get('/api/rooms/xxxxxxxx/quizzes')
+            .then((response: any) => {
+                expect(response.statusCode).to.equal(HttpStatus.OK);
+                expect(response.body).to.be.a('array');
+            });
+    });
     
 });

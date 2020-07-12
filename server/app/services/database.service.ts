@@ -139,7 +139,7 @@ export class DatabaseService {
         }
     
     async createChoices(questionId: string, choiceLabels: string[]): Promise<void> {
-        const query = `INSERT INTO ${this.SCHEMA_NAME}.Choice (question_label, question_id) VALUES ($1,$2);`;
+        const query = `INSERT INTO ${this.SCHEMA_NAME}.Choice (choice_label, question_id) VALUES ($1,$2);`;
         for (const choiceLabel of choiceLabels) {
             const values = [choiceLabel, questionId];
             await this.pool.query(query, values);

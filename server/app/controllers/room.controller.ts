@@ -39,6 +39,42 @@ export class RoomController {
                 });
         });
 
+        router.get('/:eventKey', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getRoomByEventKey(req.params.eventKey)
+                .then((result: QueryResult) => {
+                    const rooms: Room[] = result.rows.map((room: any) => ({
+                        roomId: room.room_id,
+                        eventKey: room.event_key,
+                        name: room.room_name,
+                        presenterId: room.presenter_id,
+                        startTime: room.start_time,
+                        endTime: room.end_time
+                    }));
+                    res.status(HttpStatus.OK).send(rooms[0]);
+                })
+                .catch((e: Error) => {
+                    res.status(HttpStatus.BAD_REQUEST).send(e.message);
+                });
+        });
+
+        router.get('/:eventKey/quizzes', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getAllQuizzesByEventKey(req.params.eventKey)
+                .then((result: QueryResult) => {
+                    const quizzes: Quiz[] = result.rows.map((quiz: any) => ({
+                        quizId: quiz.quiz_id,
+                        maxDuration: quiz.max_duration,
+                        title: quiz.title,
+                        roomId: quiz.room_id
+                    }));
+                    res.status(HttpStatus.OK).send(quizzes);
+                })
+                .catch((e: Error) => {
+                    res.status(HttpStatus.BAD_REQUEST).send(e.message);
+                });
+        });
+
         router.post('/:roomId/quizzes', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .createQuiz(req.body.maxDuration, req.body.title, req.params.roomId)

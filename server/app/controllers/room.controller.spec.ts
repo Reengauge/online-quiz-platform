@@ -11,7 +11,7 @@ describe('RoomController', () => {
     
     let databaseService: Stubbed<DatabaseService>;
     let app: Express.Application;
-    const validDatabaseResponse = {
+    const validQuestionResponse = {
         rows: [
           {
             question_id: 1,
@@ -21,14 +21,44 @@ describe('RoomController', () => {
           }
         ]
     }
+    const validEventKey = "w4dwa17q";
+    const validRoomResponse = {
+        rows: [
+          {
+            room_id: 1,
+            event_key: validEventKey,
+            room_name: "Math class",
+            presenter_id: "d51ces46xwqq1",
+            start_time: "2020-05-05",
+            end_time: "2020-06-05"
+          }
+        ]
+    }
 
     beforeEach(async () => {
         const [container, sandbox] = await testingContainer();
         container.rebind(Types.DatabaseService).toConstantValue({
-            getAllQuestionsByEventKey: sandbox.stub().resolves(validDatabaseResponse)
+            getAllQuestionsByEventKey: sandbox.stub().resolves(validQuestionResponse),
+            generateUniqueEventKey: sandbox.stub().resolves(validEventKey),
+            createRoom: sandbox.stub().resolves(validRoomResponse)
         });
         databaseService = container.get(Types.DatabaseService);
         app = container.get<Application>(Types.Application).app;
+    });
+
+    it('POST /api/rooms should return a room', async () => {
+        return supertest(app)
+            .post('/api/rooms')
+            .send({ name: "Math class", presenterId: "d51ces46xwqq1" })
+            .then((response: any) => {
+                expect(response.statusCode).to.equal(HttpStatus.CREATED);
+                expect(response.body).to.have.property('roomId');
+                expect(response.body).to.have.property('eventKey');
+                expect(response.body).to.have.property('name');
+                expect(response.body).to.have.property('presenterId');
+                expect(response.body).to.have.property('startTime');
+                expect(response.body).to.have.property('endTime');
+            });
     });
 
     it('GET /api/rooms/:eventKey/questions should return a JSON array', async () => {

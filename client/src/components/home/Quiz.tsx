@@ -45,6 +45,7 @@ const Quiz: React.FunctionComponent = () => {
     return (
         <div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div
                 className="chat-header"
                 style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999, borderRadius: '10px 10px 0px 0px' }}
@@ -55,6 +56,8 @@ const Quiz: React.FunctionComponent = () => {
             <div>
                 <button onClick={sendGetRequest}>Get Questions for quiz 1</button>
 =======
+=======
+>>>>>>> parent of e60c6b6... added some styling for the bot page
             <div className="chat-header" style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999 }}>
                 <h3>Haihan's React Class 425</h3>
                 <p>By Haihan</p>

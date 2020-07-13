@@ -1,0 +1,94 @@
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
+h1 :first-child {
+    color: orange;
+}
+
+h1 :last-child {
+    text-decoration: underline;
+}
+
+h1 {
+    padding: 0px 25px;
+    font-weight: bold;
+}
+
+p {
+    padding: 20px 0px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+}
+
+.landing-page {
+    background: linear-gradient(rgba(84, 68, 178, 0.97), rgba(84, 68, 178, 0.97)), url('../../images/meeting-pic.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+}
+
+.center-card {
+    position: absolute;
+    top: 30%;
+    left: 45%;
+    margin-top: -50px;
+    margin-left: -50px;
+    /* width: 1000px;
+    height: 1000px; */
+    color: white;
+    /* width: 200px;
+    height: 600px; */
+    font-family: 'Brandon Grotesque', sans-serif;
+    text-align: center;
+}
+
+#number {
+    border-radius: 0px 5px 5px 0px;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Brandon Grotesque', sans-serif;
+    font-size: 18px;
+    position: relative;
+}
+
+::placeholder {
+    color: #c4c4c4;
+    font-weight: bold;
+}
+
+.hashtag {
+    font-family: 'Brandon Grotesque', sans-serif;
+    background-color: white;
+    color: black;
+    font-weight: bolder;
+    padding: 10px 17px;
+    font-size: 18px;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999999;
+    position: relative;
+}
+
+input#number:focus {
+    outline-width: 0;
+}
+
+.signin {
+    font-size: 15px;
+}
+
+.signin a {
+    text-decoration: underline;
+    color: white;
+}
+
+.signin a:hover {
+    color: rgb(204, 204, 204);
+}

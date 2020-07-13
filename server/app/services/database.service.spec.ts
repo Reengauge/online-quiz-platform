@@ -59,5 +59,44 @@ describe('DatabaseService', () => {
         expect(spy.calledOnce);
     });
 
+    it('#createRoom should send a PostgreSQL query', async () => {
+        await databaseService.createRoom('xxxxxxxx', 'My room', 'fes45f15s4');
+        expect(spy.calledTwice);
+    });
+
+    it('#createQuiz should send a PostgreSQL query', async () => {
+        await databaseService.createQuiz(120, 'My quiz', '1');
+        expect(spy.calledTwice);
+    });
+
+    it('#createQuestionAndChoices should send a PostgreSQL query', async () => {
+        await databaseService.createQuestionAndChoices('What is your name', 'John', 1, ["Doe"]);
+        expect(spy.called);
+    });
+
+    it('#createQuestion should send a PostgreSQL query', async () => {
+        await databaseService.createQuestion('What is your name', 'John', 1);
+        expect(spy.calledThrice);
+    });
+
+    it('#createChoices should send a PostgreSQL query', async () => {
+        await databaseService.createChoices('1', ['John', 'Doe']);
+        expect(spy.calledTwice);
+    });
+
+    it('#getAllAnswersByQuiz should send a PostgreSQL query', async () => {
+        await databaseService.getAllAnswersByQuiz('1');
+        expect(spy.calledOnce);
+    });
+
+    it('#getRoomByEventKey should send a PostgreSQL query', async () => {
+        await databaseService.getRoomByEventKey('12345678');
+        expect(spy.calledOnce);
+    });
+
+    it('#getAllQuizzesByEventKey should send a PostgreSQL query', async () => {
+        await databaseService.getAllQuizzesByEventKey('12345678');
+        expect(spy.calledOnce);
+    });
     
 });

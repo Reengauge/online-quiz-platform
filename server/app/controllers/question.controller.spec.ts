@@ -7,50 +7,42 @@ import Types from '../types';
 import { DatabaseService } from '../services/database.service';
 
 /*tslint:disable:no-any */
-describe('AnswerController', () => {
+describe('QuestionController', () => {
     
     let databaseService: Stubbed<DatabaseService>;
     let app: Express.Application;
-    const validAnswer = {
-        participantId: '123',
-        answerLabel: 'My answer'
-    }
-    const validAnswerResponse = {
+    const validQuestionResponse = {
         rows: [
-            {
-                participant_id: '123',
-                answer_label: 'My answer'
-            }
-          ]
+          {
+            question_id: 1,
+            question_label: 'What is your name?',
+            correct_answer: 'John Doe',
+            quiz_id: 1
+          }
+        ]
     }
+    
 
     beforeEach(async () => {
         const [container, sandbox] = await testingContainer();
         container.rebind(Types.DatabaseService).toConstantValue({
-            createAnswer: sandbox.stub().resolves(),
-            getAllAnswersByQuiz: sandbox.stub().resolves(validAnswerResponse)
+            createQuestionAndChoices: sandbox.stub().resolves(validQuestionResponse)
         });
         databaseService = container.get(Types.DatabaseService);
         app = container.get<Application>(Types.Application).app;
     });
 
-    it('GET /api/answers/:quizId should return a JSON array', async () => {
+    it('POST /api/questions should return a question', async () => {
         databaseService = databaseService;
         return supertest(app)
-            .get('/api/answers/1')
-            .then((response: any) => {
-                expect(response.statusCode).to.equal(HttpStatus.OK);
-                expect(response.body).to.be.a('array');
-            });
-    });
-
-    it('POST /api/answers/:questionId should return a CREATED status', async () => {
-        databaseService = databaseService;
-        return supertest(app)
-            .post('/api/answers/1')
-            .send(validAnswer)
+            .post('/api/questions')
+            .send({ questionLabel: "What is your name?", quizId: 1 })
             .then((response: any) => {
                 expect(response.statusCode).to.equal(HttpStatus.CREATED);
+                expect(response.body).to.have.property('questionId');
+                expect(response.body).to.have.property('questionLabel');
+                expect(response.body).to.have.property('correctAnswer');
+                expect(response.body).to.have.property('quizId');
             });
     });
 

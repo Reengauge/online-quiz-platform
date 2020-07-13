@@ -5,5 +5,6 @@ export default {
     DatabaseController: Symbol('DatabaseController'),
     RoomController: Symbol('RoomController'),
     ChoiceController: Symbol('ChoiceController'),
-    AnswerController: Symbol('AnswerController')
+    AnswerController: Symbol('AnswerController'),
+    QuestionController: Symbol('QuestionController')
 };

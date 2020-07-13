@@ -5,7 +5,6 @@ import * as express from 'express';
 import { inject, injectable } from 'inversify';
 import * as logger from 'morgan';
 import { DatabaseController } from './controllers/database.controller';
-import { IndexController } from './controllers/index.controller';
 import Types from './types';
 import { RoomController } from './controllers/room.controller';
 import { ChoiceController } from './controllers/choice.controller';
@@ -17,7 +16,6 @@ export class Application {
     app: express.Application;
 
     constructor(
-        @inject(Types.IndexController) private indexController: IndexController,
         @inject(Types.DatabaseController) private databaseController: DatabaseController,
         @inject(Types.RoomController) private roomController: RoomController,
         @inject(Types.ChoiceController) private choiceController: ChoiceController,
@@ -40,7 +38,6 @@ export class Application {
     }
 
     bindRoutes(): void {
-        this.app.use('/api/index', this.indexController.router);
         this.app.use('/api/db', this.databaseController.router);
         this.app.use('/api/rooms', this.roomController.router);
         this.app.use('/api/choices', this.choiceController.router);

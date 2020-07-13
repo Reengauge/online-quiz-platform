@@ -16,7 +16,7 @@ export class DatabaseController {
             this.databaseService
                 .resetDatabase()
                 .then(() => {
-                    res.status(HttpStatus.OK);
+                    res.status(HttpStatus.OK).send('Database was reset');
                 })
                 .catch((e: Error) => {
                     console.error(e.stack);

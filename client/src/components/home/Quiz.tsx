@@ -44,15 +44,9 @@ const Quiz: React.FunctionComponent = () => {
 
     return (
         <div>
-            <div
-                className="chat-header"
-                style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999, borderRadius: '10px 10px 0px 0px' }}
-            >
-                <h3>{quizObject.header}</h3>
-                <p>{quizObject.subtitle}</p>
-            </div>
-            <div>
-                <button onClick={sendGetRequest}>Get Questions for quiz 1</button>
+            <div className="chat-header" style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999 }}>
+                <h3>Haihan's React Class 425</h3>
+                <p>By Haihan</p>
             </div>
             <div className="chat-screen">
                 <Conversation

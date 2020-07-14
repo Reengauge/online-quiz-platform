@@ -88,6 +88,7 @@ const Quiz: React.FunctionComponent = () => {
     }, []);
 
     //unit tests for empty string, multiple choice, free responses, only uses specific part of the questions response data, ensure page load happens after,
+    const axios = require('axios');
 
     return (
         <div>
@@ -119,9 +120,36 @@ const Quiz: React.FunctionComponent = () => {
                     <div className="chat-screen">
                         <Conversation
                             className="conversation"
-                            onSubmit={(Response: any) => {
+                            onSubmit={async (Response: any) => {
                                 console.log(Response);
                                 console.log('will post to: ', quizObject.id);
+
+                                // Object.keys(Response).forEach(function (key) {
+                                //     Response[key].forEach(function (elem: any, index: any) {
+                                //         console.log(elem, index);
+                                //     });
+                                // });
+
+                                let answerSaveBuffer = [];
+                                for (var i = 0; i < 6; i++) {
+                                    answerSaveBuffer.push(
+                                        axios({
+                                            url: 'http://localhost:3000/api/answers/' + String(i),
+                                            method: 'post',
+                                            data: {
+                                                participantId: '1',
+                                                answerLabel: Response[i],
+                                            },
+                                        }).then((response: any) => {
+                                            console.log('answer saved: ', response);
+                                            return response.data;
+                                        }),
+                                    );
+                                }
+
+                                await Promise.all(answerSaveBuffer).then((allAnswerResp) => {
+                                    console.log('All answers saved: ', allAnswerResp);
+                                });
                             }}
                             chatOptions={{
                                 introText: quizObject.introText,

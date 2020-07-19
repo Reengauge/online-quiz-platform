@@ -100,8 +100,9 @@ export class RoomController {
                         questionId: question.question_id,
                         questionLabel: question.question_label,
                         correctAnswer: question.correct_answer,
-                        quizId: question.quiz_id
+                        quizId: question.quiz_id,
                     }));
+                    console.log(questions);
                     res.status(HttpStatus.OK).send(questions);
                 })
                 .catch((e: Error) => {

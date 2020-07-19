@@ -8,7 +8,6 @@ import { schema } from '../queries/schema';
 
 @injectable()
 export class DatabaseService {
-
     connectionConfig: ConnectionConfig = {
         user: CONSTANTS.DB_USER,
         database: CONSTANTS.DB_NAME,

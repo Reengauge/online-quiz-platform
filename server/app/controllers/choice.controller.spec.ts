@@ -3,12 +3,12 @@ import * as supertest from 'supertest';
 import { Stubbed, testingContainer } from '../../test/test-utils';
 import { Application } from '../app';
 import { HttpStatus } from '../http-status';
-import Types from '../types';
 import { DatabaseService } from '../services/database.service';
+import Types from '../types';
 
 /*tslint:disable:no-any */
 describe('ChoiceController', () => {
-    
+
     let databaseService: Stubbed<DatabaseService>;
     let app: Express.Application;
     const validDatabaseResponse = {
@@ -19,7 +19,7 @@ describe('ChoiceController', () => {
             question_id: 1
           }
         ]
-    }
+    };
 
     beforeEach(async () => {
         const [container, sandbox] = await testingContainer();
@@ -40,5 +40,4 @@ describe('ChoiceController', () => {
             });
     });
 
-    
 });

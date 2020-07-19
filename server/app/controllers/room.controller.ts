@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
-import { HttpStatus } from '../http-status';
-import { DatabaseService } from '../services/database.service';
+import { QueryResult } from 'pg';
 import { Question } from '../../../common/interfaces/question';
 import { Quiz } from '../../../common/interfaces/quiz';
 import { Room } from '../../../common/interfaces/room';
+import { HttpStatus } from '../http-status';
+import { DatabaseService } from '../services/database.service';
 import Types from '../types';
-import { QueryResult } from 'pg';
 
 @injectable()
 export class RoomController {
@@ -32,7 +32,7 @@ export class RoomController {
                             res.status(HttpStatus.CREATED).send(rooms[0]);
                         }).catch ((e: Error) => {
                             res.status(HttpStatus.BAD_REQUEST).send(e.message);
-                        })
+                        });
                 })
                 .catch((e: Error) => {
                     res.status(HttpStatus.BAD_REQUEST).send(e.message);

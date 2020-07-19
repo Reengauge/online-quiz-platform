@@ -1,13 +1,13 @@
 import { expect } from 'chai';
-import { testingContainer } from '../../test/test-utils';
-import Types from '../types';
-import { DatabaseService } from '../services/database.service';
-import sinon = require('sinon');
 import { Pool } from 'pg';
+import sinon = require('sinon');
+import { testingContainer } from '../../test/test-utils';
+import { DatabaseService } from '../services/database.service';
+import Types from '../types';
 
 /*tslint:disable:no-any */
 describe('DatabaseService', () => {
-    
+
     let databaseService: DatabaseService;
     let spy: sinon.SinonStub;
     const validQuestionArray = {
@@ -19,7 +19,7 @@ describe('DatabaseService', () => {
             quiz_id: 1
           }
         ]
-    }
+    };
 
     before(async () => {
         const [container] = await testingContainer();
@@ -67,7 +67,7 @@ describe('DatabaseService', () => {
     });
 
     it('#createQuestionAndChoices should send a PostgreSQL query', async () => {
-        await databaseService.createQuestionAndChoices('What is your name', 'John', 1, ["Doe"]);
+        await databaseService.createQuestionAndChoices('What is your name', 'John', 1, ['Doe']);
         expect(spy.called);
     });
 
@@ -105,5 +105,5 @@ describe('DatabaseService', () => {
         await databaseService.updateQuestion('1', 'test question', 'test answer');
         expect(spy.calledTwice);
     });
-    
+
 });

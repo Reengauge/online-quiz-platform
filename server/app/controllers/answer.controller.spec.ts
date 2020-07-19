@@ -3,18 +3,18 @@ import * as supertest from 'supertest';
 import { Stubbed, testingContainer } from '../../test/test-utils';
 import { Application } from '../app';
 import { HttpStatus } from '../http-status';
-import Types from '../types';
 import { DatabaseService } from '../services/database.service';
+import Types from '../types';
 
 /*tslint:disable:no-any */
 describe('AnswerController', () => {
-    
+
     let databaseService: Stubbed<DatabaseService>;
     let app: Express.Application;
     const validAnswer = {
         participantId: '123',
         answerLabel: 'My answer'
-    }
+    };
     const validAnswerResponse = {
         rows: [
             {
@@ -22,7 +22,7 @@ describe('AnswerController', () => {
                 answer_label: 'My answer'
             }
           ]
-    }
+    };
 
     beforeEach(async () => {
         const [container, sandbox] = await testingContainer();
@@ -54,5 +54,4 @@ describe('AnswerController', () => {
             });
     });
 
-    
 });

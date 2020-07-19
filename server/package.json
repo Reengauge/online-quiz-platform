@@ -6,7 +6,7 @@
     "scripts": {
         "start": "nodemon",
         "format": "prettier --config ../.prettierrc.yaml --write \"app/**/*\"",
-        "lint": "tslint --project tsconfig.json \"./app/**/*.ts\" --format stylish",
+        "lint": "tslint --project tsconfig.json \"./app/**/*.ts\" --format stylish --fix",
         "test": "mocha",
         "coverage": "nyc mocha"
     },

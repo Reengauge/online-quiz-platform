@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
+import { QueryResult } from 'pg';
+import { Answer } from '../../../common/interfaces/answer';
 import { HttpStatus } from '../http-status';
 import { DatabaseService } from '../services/database.service';
-import { Answer } from '../../../common/interfaces/answer';
 import Types from '../types';
-import { QueryResult } from 'pg';
 
 @injectable()
 export class AnswerController {

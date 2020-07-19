@@ -5,6 +5,7 @@
     "private": true,
     "scripts": {
         "start": "nodemon",
+        "dev": "nodemon",
         "format": "prettier --config ../.prettierrc.yaml --write \"app/**/*\"",
         "lint": "tslint --project tsconfig.json \"./app/**/*.ts\" --format stylish",
         "test": "mocha",

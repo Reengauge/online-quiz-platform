@@ -18,7 +18,6 @@ export class DatabaseService {
     };
 
     private pool: Pool = new Pool(this.connectionConfig);
-    public Pool = require('pg').Pool;
 
     private readonly SCHEMA_NAME: string = CONSTANTS.DB_SCHEMA_NAME;
 

@@ -1,0 +1,25 @@
+version: '3'
+services:
+    reengauge-frontend:
+        build:
+            context: ./client
+            dockerfile: Dockerfile.dev
+        volumes:
+            - /app/node_modules
+            - ./client:/app/
+        ports:
+            - '3001:3001'
+        restart: on-failure
+        container_name: reengauge-frontend
+        stdin_open: true
+    reengauge-backend:
+        build:
+            context: ./server
+            dockerfile: Dockerfile.dev
+        ports:
+            - '3000:3000'
+        restart: on-failure
+        container_name: reengauge-backend
+        volumes:
+            - /app/node_modules
+            - ./server:/app/

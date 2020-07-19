@@ -1,6 +1,13 @@
 # Online Quiz Platform
 A tool for educators to engage their students throughout class.
 
+## Running the application with Docker
+Make sure you have `docker` and `docker-compose` installed and `docker` up and running.
+To run and build the application, run the following command:
+```
+$ docker-compose up --build
+```
+
 ## Basic Database Setup (Dev Environment)
 ### Method #1 - IP Whitelist (faster, less optimal)
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/)

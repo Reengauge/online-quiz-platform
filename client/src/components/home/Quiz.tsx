@@ -100,7 +100,7 @@ const Quiz: React.FunctionComponent = () => {
                 <p>{quizObject.subtitle}</p>
             </div>
             <div>
-                <button onClick={sendGetRequest}>Get Questions for quiz 1</button>
+                <button>Get Questions for quiz 1</button>
             </div>
             <div className="chat-screen">
                 <Conversation
@@ -115,12 +115,12 @@ const Quiz: React.FunctionComponent = () => {
                     }}
                 >
                     {quizObject.questions.map((question, index) => {
-                        if (question.choices.length === 0) {
+                        if (question.choice.length === 0) {
                             return <Question id="index"> {question.question} </Question>;
                         }
                         return (
                             <Select id={index} question={question.question}>
-                                {question.choices.map((choice, index2) => (
+                                {question.choice.map((choice, index2) => (
                                     <Option value={index2}>{choice}</Option>
                                 ))}
                             </Select>

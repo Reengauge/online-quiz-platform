@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
 import { HttpStatus } from '../http-status';
 import { DatabaseService } from '../services/database.service';
-import { Answer } from '../../../common/interfaces/answer';
+import { Answer } from '../common/interfaces/answer';
 import Types from '../types';
 import { QueryResult } from 'pg';
 

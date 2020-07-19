@@ -1,49 +1,30 @@
 import { injectable } from 'inversify';
-// import { ConnectionConfig, Pool, QueryResult } from 'pg';
-import { Pool, QueryResult } from 'pg';
+import { ConnectionConfig, Pool, QueryResult } from 'pg';
 import 'reflect-metadata';
+import { v4 as uuidv4 } from 'uuid';
 import * as CONSTANTS from '../constants';
 import { data } from '../queries/populate-data';
 import { schema } from '../queries/schema';
-import { v4 as uuidv4 } from 'uuid';
 
 @injectable()
 export class DatabaseService {
+    connectionConfig: ConnectionConfig = {
+        user: CONSTANTS.DB_USER,
+        database: CONSTANTS.DB_NAME,
+        password: CONSTANTS.DB_PASSWORD,
+        port: CONSTANTS.DB_PORT,
+        host: CONSTANTS.DB_HOST,
+        keepAlive: false,
+    };
 
-    private pool: Pool = new Pool({
-        host: 'localhost',
-        user: 'database-user',
-        max: 1000,
-        idleTimeoutMillis: 0,
-        connectionTimeoutMillis: 2000,
-    });
+    private pool: Pool = new Pool(this.connectionConfig);
+    public Pool = require('pg').Pool;
 
     private readonly SCHEMA_NAME: string = CONSTANTS.DB_SCHEMA_NAME;
 
-    // connectionConfig: ConnectionConfig = {
-    //     user: CONSTANTS.DB_USER,
-    //     database: CONSTANTS.DB_NAME,
-    //     password: CONSTANTS.DB_PASSWORD,
-    //     port: CONSTANTS.DB_PORT,
-    //     host: CONSTANTS.DB_HOST,
-    //     keepAlive: false,
-    //     // max: 1000,
-    //     // idleTimeoutMillis: 30000,
-    //     // connectionTimeOutMillis: 2000,
-    // };
-    //
-    // private pool: Pool = new Pool(this.connectionConfig);
-    // private readonly SCHEMA_NAME: string = CONSTANTS.DB_SCHEMA_NAME;
-    //
-    // constructor() {
-    //     this.pool.connect();
-    //     console.log(CONSTANTS.DB_USER);
-    //     console.log(CONSTANTS.DB_NAME);
-    //     console.log(CONSTANTS.DB_PASSWORD);
-    //     console.log(CONSTANTS.DB_PORT);
-    //     console.log(CONSTANTS.DB_HOST);
-    //     console.log(CONSTANTS.DB_SCHEMA_NAME);
-    // }
+    constructor() {
+        this.pool.connect().then((r: any) => console.log('connected'));
+    }
 
     /* DATABASE DEBUG */
 

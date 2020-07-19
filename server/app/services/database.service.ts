@@ -170,4 +170,46 @@ export class DatabaseService {
         const values = [eventKey];
         return this.pool.query(query, values);
     }
+
+    async updateQuiz(quizId: string, maxDuration: number, title: string): Promise<QueryResult> {
+        // Update the quiz in the database
+        let query  = `UPDATE ${this.SCHEMA_NAME}.Quiz
+            SET max_duration = $1, title = $2
+            WHERE quiz_id = $3`;
+        let values = [maxDuration, title, quizId];
+        await this.pool.query(query, values);
+
+        // Retreive the newly updated quiz
+        query = `SELECT * FROM ${this.SCHEMA_NAME}.Quiz
+            WHERE quiz_id = $1
+            LIMIT 1`;
+        values = [quizId];
+        return this.pool.query(query, values);
+    }
+
+    async updateQuestion(questionId: string, questionLabel: string, correctAnswer: string | undefined): Promise<QueryResult> {
+        let query  = '';
+        let values;
+
+        // Update the question in the database
+        if (correctAnswer === undefined) {
+            query = `UPDATE ${this.SCHEMA_NAME}.Question
+                SET question_label = $1
+                WHERE question_id = $2`;
+            values = [questionLabel, questionId];
+        } else {
+            query = `UPDATE ${this.SCHEMA_NAME}.Question
+                SET question_label = $1, correct_answer = $2
+                WHERE question_id = $3`;
+            values = [questionLabel, correctAnswer, questionId];
+        }
+        await this.pool.query(query, values);
+
+        // Retreive the newly updated question
+        query = `SELECT * FROM ${this.SCHEMA_NAME}.Question
+            WHERE question_id = $1
+            LIMIT 1`;
+        values = [questionId];
+        return this.pool.query(query, values);
+    }
 }

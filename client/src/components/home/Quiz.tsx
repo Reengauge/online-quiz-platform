@@ -13,7 +13,7 @@ var quizObject = {
         'Hi there, its Jason. Can you leave some feedback on our class about the Rate of Return! To edit any of your responses, just click on them.',
     submitText: 'Thanks for giving us your feedback!',
 
-    questions: [{ question: 'No question found. Please check 404    ', choice: [] }],
+    questions: [{ question: 'No question found. Please check 404    ', choices: [] }],
 };
 
 function getChoice(choiceNum: any) {
@@ -115,12 +115,12 @@ const Quiz: React.FunctionComponent = () => {
                     }}
                 >
                     {quizObject.questions.map((question, index) => {
-                        if (question.choice.length === 0) {
+                        if (question.choices.length === 0) {
                             return <Question id="index"> {question.question} </Question>;
                         }
                         return (
                             <Select id={index} question={question.question}>
-                                {question.choice.map((choice, index2) => (
+                                {question.choices.map((choice, index2) => (
                                     <Option value={index2}>{choice}</Option>
                                 ))}
                             </Select>

@@ -26,7 +26,8 @@ describe('QuestionController', () => {
     beforeEach(async () => {
         const [container, sandbox] = await testingContainer();
         container.rebind(Types.DatabaseService).toConstantValue({
-            createQuestionAndChoices: sandbox.stub().resolves(validQuestionResponse)
+            createQuestionAndChoices: sandbox.stub().resolves(validQuestionResponse),
+            updateQuestion: sandbox.stub().resolves(validQuestionResponse)
         });
         databaseService = container.get(Types.DatabaseService);
         app = container.get<Application>(Types.Application).app;
@@ -46,5 +47,18 @@ describe('QuestionController', () => {
             });
     });
 
-    
+    it('PUT /api/questions/xxxxxx should return a question', async () => {
+        databaseService = databaseService;
+        return supertest(app)
+            .put('/api/questions/1')
+            .send({ questionLabel: "What is your name?", correctAnswer: "Josh" })
+            .then((response: any) => {
+                expect(response.statusCode).to.equal(HttpStatus.OK);
+                expect(response.body).to.have.property('questionId');
+                expect(response.body).to.have.property('questionLabel');
+                expect(response.body).to.have.property('correctAnswer');
+                expect(response.body).to.have.property('quizId');
+            });
+    });
+
 });

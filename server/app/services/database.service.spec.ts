@@ -1,8 +1,5 @@
 import { expect } from 'chai';
-//import * as supertest from 'supertest';
 import { testingContainer } from '../../test/test-utils';
-//import { Application } from '../app';
-//import { HttpStatus } from '../http-status';
 import Types from '../types';
 import { DatabaseService } from '../services/database.service';
 import sinon = require('sinon');
@@ -97,6 +94,16 @@ describe('DatabaseService', () => {
     it('#getAllQuizzesByEventKey should send a PostgreSQL query', async () => {
         await databaseService.getAllQuizzesByEventKey('12345678');
         expect(spy.calledOnce);
+    });
+
+    it('#updateQuiz should send a PostgreSQL query', async () => {
+        await databaseService.updateQuiz('1', 1, 'test title');
+        expect(spy.calledTwice);
+    });
+
+    it('#updateQuestion should send a PostgreSQL query', async () => {
+        await databaseService.updateQuestion('1', 'test question', 'test answer');
+        expect(spy.calledTwice);
     });
     
 });

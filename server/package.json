@@ -78,7 +78,7 @@
         "@types/supertest": "^2.0.8",
         "chai": "~4.2.0",
         "mocha": "^6.2.2",
-        "nodemon": "^2.0.2",
+        "nodemon": "^2.0.4",
         "nyc": "^14.1.1",
         "rimraf": "3.0.0",
         "sinon": "^8.1.1",

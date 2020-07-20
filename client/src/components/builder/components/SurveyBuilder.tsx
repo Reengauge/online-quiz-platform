@@ -5,7 +5,7 @@ import { useInputValue } from "../hooks";
 import Question from "../models/Question";
 import ListController from "../controllers/ListController";
 
-import "../styles.css";
+import "../builder.css";
 
 export default function SurveyBuilder() {
     const [title, handleChangeTitle] = useInputValue("New Survey");

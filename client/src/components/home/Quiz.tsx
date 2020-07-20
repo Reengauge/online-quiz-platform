@@ -44,7 +44,7 @@ async function getQuiz(roomNum: any) {
     }).then(async (response) => {
         var quizObj = response.data;
         var roomInfo = await getRoom(roomNum);
-        quizObject['subtitle'] = 'by ' + roomInfo['name'].toString();
+        // quizObject['subtitle'] = 'by ' + roomInfo['name'].toString();
         quizObject['introText'] = "Hi there, it's " + roomInfo['presenterId'];
         quizObject['header'] = 'Dynamic quiz title here';
 

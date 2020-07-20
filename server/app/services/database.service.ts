@@ -213,4 +213,11 @@ export class DatabaseService {
         values = [questionId];
         return this.pool.query(query, values);
     }
+
+    // Added services
+    async getAllRooms(): Promise<QueryResult>  {
+        const values = [this.SCHEMA_NAME + '.Room'];
+        const query = `SELECT * FROM $1`;
+        return this.pool.query(query, values);
+    }
 }

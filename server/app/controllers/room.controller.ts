@@ -112,6 +112,28 @@ export class RoomController {
                 });
         });
 
+        // new method added
+        router.get('/', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getAllRooms()
+                .then((result: QueryResult) => {
+                    console.log(result);
+                    const rooms: Room[] = result.rows.map((room: any) => ({
+                        roomId: room.room_id,
+                        eventKey: room.event_key,
+                        name: room.room_name,
+                        presenterId: room.presenter_id,
+                        startTime: room.start_time,
+                        endTime: room.end_time,
+                    }));
+                    console.log(rooms);
+                    res.status(HttpStatus.OK).send(rooms);
+                })
+                .catch((e: Error) => {
+                res.status(HttpStatus.BAD_REQUEST).send(e.message);
+                });
+        });
+
         return router;
     }
 }

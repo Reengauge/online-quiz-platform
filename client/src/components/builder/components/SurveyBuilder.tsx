@@ -4,8 +4,19 @@ import SurveyQuestion from './SurveyQuestion';
 import { useInputValue } from '../hooks';
 import Question from '../models/Question';
 import ListController from '../controllers/ListController';
+import axios from 'axios';
 
 import "../builder.css";
+
+function createQuiz(choiceNum: any) {
+    return axios({
+        url: 'http://localhost:3000/api/rooms/' + String(choiceNum),
+        method: 'get',
+    }).then((response) => {
+        // console.log(response);
+        return response.data;
+    });
+}
 
 export default function SurveyBuilder() {
     const [title, handleChangeTitle] = useInputValue('New Survey');

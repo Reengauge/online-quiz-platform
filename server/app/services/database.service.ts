@@ -109,12 +109,10 @@ export class DatabaseService {
 
     async createQuestionAndChoices(questionLabel: string, correctAnswer: string | undefined,
                                    quizId: number, choiceLabels: string[] | undefined): Promise<QueryResult> {
-            const question = await this.createQuestion(questionLabel, correctAnswer, quizId);
-            if (choiceLabels !== undefined) {
-                const questionId = question.rows[0]['question_id'];
-                await this.createChoices(questionId, choiceLabels);
-            }
-            return question;
+        const question = await this.createQuestion(questionLabel, correctAnswer, quizId);
+        if (choiceLabels !== undefined) {
+            const questionId = question.rows[0]['question_id'];
+            await this.createChoices(questionId, choiceLabels);
         }
         return question;
     }

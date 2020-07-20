@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db8bea79-aad4-4eb0-9df5-b77d2a76988a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/builder/builder.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/builder/components/SurveyBuilder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/builder/components/SurveyBuilder.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/builder/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/home/Quiz.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/home/Quiz.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/app/services/database.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/app/services/database.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +14,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1eH8YCjfp8Al9hUAz2dfbi4iTgm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -33,7 +32,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/client/node_modules/typescript/lib" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -103,6 +102,8 @@
       <workItem from="1595163398584" duration="7891000" />
       <workItem from="1595174186824" duration="6876000" />
       <workItem from="1595213542624" duration="107000" />
+      <workItem from="1595268552085" duration="353000" />
+      <workItem from="1595268978271" duration="281000" />
     </task>
     <servers />
   </component>
@@ -190,6 +191,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="308" y="200" key="IDE.errors.dialog/0.0.1440.900@0.0.1440.900" timestamp="1595178781198" />
+    <state x="495" y="394" key="git4idea.pull.GitPullDialog" timestamp="1595268697724">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="495" y="394" key="git4idea.pull.GitPullDialog/0.0.1440.900@0.0.1440.900" timestamp="1595268697724" />
     <state x="385" y="210" key="run.anything.popup" timestamp="1593967683156">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

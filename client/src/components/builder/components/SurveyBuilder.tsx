@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import SurveyTitle from "./SurveyTitle";
-import SurveyQuestion from "./SurveyQuestion";
-import { useInputValue } from "../hooks";
-import Question from "../models/Question";
-import ListController from "../controllers/ListController";
+import React, { useState } from 'react';
+import SurveyTitle from './SurveyTitle';
+import SurveyQuestion from './SurveyQuestion';
+import { useInputValue } from '../hooks';
+import Question from '../models/Question';
+import ListController from '../controllers/ListController';
 
-import "../styles.css";
+import '../styles.css';
 
 export default function SurveyBuilder() {
-    const [title, handleChangeTitle] = useInputValue("New Survey");
+    const [title, handleChangeTitle] = useInputValue('New Survey');
     const [questions, setQuestions] = useState([
         new Question({
             text: "What's your favorite color?",
-            options: ["Blue", "Orange", "White", "Purple"]
-        })
+            options: ['Blue', 'Orange', 'White', 'Purple'],
+        }),
     ]);
 
     const listController = new ListController(questions, setQuestions);
@@ -27,7 +27,7 @@ export default function SurveyBuilder() {
                     <SurveyQuestion
                         key={(question as any).id}
                         question={question as any}
-                        setQuestion={(question: any)=> listController.set(i, question)}
+                        setQuestion={(question: any) => listController.set(i, question)}
                         removeQuestion={() => listController.remove(i)}
                         moveQuestionUp={() => listController.moveUp(i)}
                         moveQuestionDown={() => listController.moveDown(i)}
@@ -37,6 +37,11 @@ export default function SurveyBuilder() {
             <button onClick={() => listController.add(new Question())}>
                 <i className="fas fa-plus icon" />
                 Add Question
+            </button>
+
+            <button className="save-button" onClick={() => console.log(questions)}>
+                <i className="fas fa-save icon" />
+                Create Quiz
             </button>
         </div>
     );

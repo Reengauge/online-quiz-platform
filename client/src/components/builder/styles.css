@@ -1,5 +1,9 @@
-@import url("https://taniarascia.github.io/primitive/css/main.css");
+@import url('https://taniarascia.github.io/primitive/css/main.css');
 
 .icon {
     margin-right: 0.5em;
+}
+
+.save-button {
+    width: 100%;
 }

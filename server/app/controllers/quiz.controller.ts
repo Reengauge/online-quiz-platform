@@ -1,28 +1,29 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
 import { QueryResult } from 'pg';
-import { Choice } from '../common/interfaces/choice';
+import { Quiz } from '../common/interfaces/quiz';
 import { HttpStatus } from '../http-status';
 import { DatabaseService } from '../services/database.service';
 import Types from '../types';
 
 @injectable()
-export class ChoiceController {
+export class QuizController {
     constructor(@inject(Types.DatabaseService) private databaseService: DatabaseService) {}
 
     get router(): Router {
         const router: Router = Router();
 
-        router.get('/:questionId', (req: Request, res: Response, next: NextFunction) => {
+        router.put('/:quizId', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
-                .getAllChoicesByQuestion(req.params.questionId)
+                .updateQuiz(req.params.quizId, req.body.maxDuration, req.body.title)
                 .then((result: QueryResult) => {
-                    const choices: Choice[] = result.rows.map((choice: any) => ({
-                        choiceId: choice.choice_id,
-                        choiceLabel: choice.choice_label,
-                        questionId: choice.question_id,
+                    const quizzes: Quiz[] = result.rows.map((quiz: any) => ({
+                        quizId: quiz.quiz_id,
+                        maxDuration: quiz.max_duration,
+                        title: quiz.title,
+                        roomId: quiz.room_id,
                     }));
-                    res.status(HttpStatus.OK).send(choices);
+                    res.status(HttpStatus.OK).send(quizzes[0]);
                 })
                 .catch((e: Error) => {
                     res.status(HttpStatus.BAD_REQUEST).send(e.message);

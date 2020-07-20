@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db8bea79-aad4-4eb0-9df5-b77d2a76988a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/stylesheets/homepage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/stylesheets/quiz.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/builder/builder.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/builder/builder.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/builder/components/SurveyBuilder.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/builder/components/SurveyBuilder.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +105,7 @@
       <workItem from="1595174186824" duration="6876000" />
       <workItem from="1595213542624" duration="107000" />
       <workItem from="1595268552085" duration="353000" />
-      <workItem from="1595268978271" duration="590000" />
+      <workItem from="1595268978271" duration="732000" />
     </task>
     <servers />
   </component>

@@ -69,7 +69,7 @@ const ManageQuizzes = () => {
                     <Table>
                         <Table.Header>
                             <Table.ColHeader>ID</Table.ColHeader>
-                            <Table.ColHeader>Name</Table.ColHeader>
+                            <Table.ColHeader>Room Name</Table.ColHeader>
                             <Table.ColHeader>Action</Table.ColHeader>
                         </Table.Header>
                         <Table.Body>

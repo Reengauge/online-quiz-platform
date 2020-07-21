@@ -20,7 +20,7 @@ export default class Question {
 
     constructor(params = {}) {
         // const { text, type, options, id } = { ...Question.DEFAULTS, ...params };
-        const { text, type, options, id } = { ...Question.DEFAULTS, ...params };
+        const { text, type, options, id} = { ...Question.DEFAULTS, ...params };
         this.text = text;
         this.type = type;
         this.options = options;

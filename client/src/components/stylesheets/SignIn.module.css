@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.left {
+    background-color: #f6fafc;
+    height: 100vh;
+    overflow: auto;
+}
+
+.right {
+    background-color: #ffffff;
+    height: 100vh;
+    align-self: flex-start;
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.74) 90.67%),
+        url(https://images.pexels.com/photos/2173508/pexels-photo-2173508.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.ctr {
+    height: 100vh;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login {
+    max-width: 90%;
+}
+
+.headerTitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.featuredContent {
+    position: absolute;
+
+    bottom: 50px;
+    left: 50px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: 300;
+
+    display: block;
+}
+
+.featuredTrialHeader {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3.5em;
+    line-height: 1.1em;
+    margin-bottom: 0.3em;
+}
+
+.featuredWebsiteLink {
+    border: 1px solid white;
+    padding: 0.4em 1.8em;
+    display: table-cell;
+    opacity: 0.5;
+}
+
+.featuredWebsiteLink:hover {
+    opacity: 1;
+}
+
+.featuredPerson {
+    position: absolute;
+    bottom: 0px;
+    right: 40px;
+}
+
+@media only screen and (max-width: 700px) {
+    .ctr {
+        margin-left: 0;
+        margin-right: 0;
+        flex-direction: column-reverse;
+    }
+    .featuredPerson {
+        display: none;
+    }
+
+    .featuredWebsiteLink {
+        display: none;
+    }
+
+    .featuredContent {
+        font-size: 0.8em;
+    }
+    .featuredTrialHeader {
+        font-size: 2em;
+        line-height: 1em;
+        margin-bottom: 0.1em;
+    }
+    .left {
+        overflow: visible;
+        height: auto;
+    }
+}

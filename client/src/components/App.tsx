@@ -7,6 +7,7 @@ import Quiz from './home/Quiz';
 import Signin from './home/Signin';
 import AdminPage from './home/AdminPage';
 import QuizBuilder from './builder/components/SurveyBuilder';
+import SignUp from './home/Signup';
 
 const AppRouter: React.FunctionComponent = () => {
     return (
@@ -17,6 +18,7 @@ const AppRouter: React.FunctionComponent = () => {
                 <Route exact path="/create" component={QuizBuilder} />
                 <Route exact path="/signin" component={Signin} />
                 <Route exact path="/admin" component={AdminPage} />
+                <Route exact path="/signup" component={SignUp} />
             </Switch>
         </Router>
     );

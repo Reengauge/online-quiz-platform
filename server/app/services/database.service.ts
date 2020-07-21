@@ -216,8 +216,7 @@ export class DatabaseService {
 
     // Added services
     async getAllRooms(): Promise<QueryResult>  {
-        const values = [this.SCHEMA_NAME + '.Room'];
-        const query = `SELECT * FROM $1`;
-        return this.pool.query(query, values);
+        const query = `SELECT * FROM ${this.SCHEMA_NAME}.Room`;
+        return this.pool.query(query);
     }
 }

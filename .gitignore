@@ -1,3 +1,5 @@
+/node_modules/
+
 #ignoring .vscode folder but we keep some files for debuging
 /.vscode/chrome
 /.vs/
@@ -10,3 +12,8 @@ coverage/
 
 # Google Cloud Tools
 cloud_sql_proxy
+
+# idea
+/.idea/
+
+

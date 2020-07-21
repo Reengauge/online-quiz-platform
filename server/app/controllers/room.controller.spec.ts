@@ -3,12 +3,12 @@ import * as supertest from 'supertest';
 import { Stubbed, testingContainer } from '../../test/test-utils';
 import { Application } from '../app';
 import { HttpStatus } from '../http-status';
-import Types from '../types';
 import { DatabaseService } from '../services/database.service';
+import Types from '../types';
 
 /*tslint:disable:no-any */
 describe('RoomController', () => {
-    
+
     let databaseService: Stubbed<DatabaseService>;
     let app: Express.Application;
     const validQuestionResponse = {
@@ -20,30 +20,30 @@ describe('RoomController', () => {
             quiz_id: 1
           }
         ]
-    }
-    const validEventKey = "w4dwa17q";
+    };
+    const validEventKey = 'w4dwa17q';
     const validRoomResponse = {
         rows: [
           {
             room_id: 1,
             event_key: validEventKey,
-            room_name: "Math class",
-            presenter_id: "d51ces46xwqq1",
-            start_time: "2020-05-05",
-            end_time: "2020-06-05"
+            room_name: 'Math class',
+            presenter_id: 'd51ces46xwqq1',
+            start_time: '2020-05-05',
+            end_time: '2020-06-05'
           }
         ]
-    }
+    };
     const validQuizResponse = {
         rows: [
           {
             quiz_id: 1,
             max_duration: 120,
-            title: "Dear John",
-            room_id	: "xxxxxxxx"
+            title: 'Dear John',
+            room_id	: 'xxxxxxxx'
           }
         ]
-    }
+    };
 
     beforeEach(async () => {
         const [container, sandbox] = await testingContainer();
@@ -62,7 +62,7 @@ describe('RoomController', () => {
     it('POST /api/rooms should return a room', async () => {
         return supertest(app)
             .post('/api/rooms')
-            .send({ name: "Math class", presenterId: "d51ces46xwqq1" })
+            .send({ name: 'Math class', presenterId: 'd51ces46xwqq1' })
             .then((response: any) => {
                 expect(response.statusCode).to.equal(HttpStatus.CREATED);
                 expect(response.body).to.have.property('roomId');
@@ -77,7 +77,7 @@ describe('RoomController', () => {
     it('POST /api/rooms/:eventKey/quizzes should return a quiz', async () => {
         return supertest(app)
             .post('/api/rooms/xxxxxxxx/quizzes')
-            .send({ maxDuration: 120, title: "Dear John" })
+            .send({ maxDuration: 120, title: 'Dear John' })
             .then((response: any) => {
                 expect(response.statusCode).to.equal(HttpStatus.CREATED);
                 expect(response.body).to.have.property('quizId');
@@ -121,5 +121,5 @@ describe('RoomController', () => {
                 expect(response.body).to.be.a('array');
             });
     });
-    
+
 });

@@ -1,28 +1,24 @@
 import { expect } from 'chai';
-//import * as supertest from 'supertest';
-import { testingContainer } from '../../test/test-utils';
-//import { Application } from '../app';
-//import { HttpStatus } from '../http-status';
-import Types from '../types';
-import { DatabaseService } from '../services/database.service';
-import sinon = require('sinon');
 import { Pool } from 'pg';
+import sinon = require('sinon');
+import { testingContainer } from '../../test/test-utils';
+import { DatabaseService } from '../services/database.service';
+import Types from '../types';
 
 /*tslint:disable:no-any */
 describe('DatabaseService', () => {
-    
     let databaseService: DatabaseService;
     let spy: sinon.SinonStub;
     const validQuestionArray = {
         rows: [
-          {
-            question_id: 1,
-            question_label: 'What is your name?',
-            correct_answer: 'John Doe',
-            quiz_id: 1
-          }
-        ]
-    }
+            {
+                question_id: 1,
+                question_label: 'What is your name?',
+                correct_answer: 'John Doe',
+                quiz_id: 1,
+            },
+        ],
+    };
 
     before(async () => {
         const [container] = await testingContainer();
@@ -70,7 +66,7 @@ describe('DatabaseService', () => {
     });
 
     it('#createQuestionAndChoices should send a PostgreSQL query', async () => {
-        await databaseService.createQuestionAndChoices('What is your name', 'John', 1, ["Doe"]);
+        await databaseService.createQuestionAndChoices('What is your name', 'John', 1, ['Doe']);
         expect(spy.called);
     });
 
@@ -98,5 +94,14 @@ describe('DatabaseService', () => {
         await databaseService.getAllQuizzesByEventKey('12345678');
         expect(spy.calledOnce);
     });
-    
+
+    it('#updateQuiz should send a PostgreSQL query', async () => {
+        await databaseService.updateQuiz('1', 1, 'test title');
+        expect(spy.calledTwice);
+    });
+
+    it('#updateQuestion should send a PostgreSQL query', async () => {
+        await databaseService.updateQuestion('1', 'test question', 'test answer');
+        expect(spy.calledTwice);
+    });
 });

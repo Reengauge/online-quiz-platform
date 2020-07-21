@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
 import { ConnectionConfig, Pool, QueryResult } from 'pg';
 import 'reflect-metadata';
+import { v4 as uuidv4 } from 'uuid';
 import * as CONSTANTS from '../constants';
 import { data } from '../queries/populate-data';
 import { schema } from '../queries/schema';
-import { v4 as uuidv4 } from 'uuid';
 
 @injectable()
 export class DatabaseService {
@@ -18,6 +18,7 @@ export class DatabaseService {
     };
 
     private pool: Pool = new Pool(this.connectionConfig);
+
     private readonly SCHEMA_NAME: string = CONSTANTS.DB_SCHEMA_NAME;
 
     constructor() {
@@ -40,7 +41,7 @@ export class DatabaseService {
     /* CONTENT */
 
     async getAllQuestionsByEventKey(eventKey: string): Promise<QueryResult> {
-        const query = `SELECT qn.question_id, qn.question_label, qn.correct_answer, qn.quiz_id 
+        const query = `SELECT qn.question_id, qn.question_label, qn.correct_answer, qn.quiz_id
         FROM ${this.SCHEMA_NAME}.Question qn, ${this.SCHEMA_NAME}.Quiz qz, ${this.SCHEMA_NAME}.Room r
         WHERE r.event_key = $1
         AND r.room_id = qz.room_id
@@ -99,8 +100,8 @@ export class DatabaseService {
         await this.pool.query(query, values);
 
         // Retreive the quiz from the database
-        query = `SELECT * FROM ${this.SCHEMA_NAME}.Quiz 
-            WHERE room_id = $1 
+        query = `SELECT * FROM ${this.SCHEMA_NAME}.Quiz
+            WHERE room_id = $1
             ORDER BY quiz_id DESC
             LIMIT 1`;
         values = [roomId];
@@ -173,5 +174,52 @@ export class DatabaseService {
             AND r.room_id = q.room_id`;
         const values = [eventKey];
         return this.pool.query(query, values);
+    }
+
+    async updateQuiz(quizId: string, maxDuration: number, title: string): Promise<QueryResult> {
+        // Update the quiz in the database
+        let query = `UPDATE ${this.SCHEMA_NAME}.Quiz
+            SET max_duration = $1, title = $2
+            WHERE quiz_id = $3`;
+        let values = [maxDuration, title, quizId];
+        await this.pool.query(query, values);
+
+        // Retreive the newly updated quiz
+        query = `SELECT * FROM ${this.SCHEMA_NAME}.Quiz
+            WHERE quiz_id = $1
+            LIMIT 1`;
+        values = [quizId];
+        return this.pool.query(query, values);
+    }
+
+    async updateQuestion(questionId: string, questionLabel: string, correctAnswer: string | undefined): Promise<QueryResult> {
+        let query = '';
+        let values;
+
+        // Update the question in the database
+        if (correctAnswer === undefined) {
+            query = `UPDATE ${this.SCHEMA_NAME}.Question
+                SET question_label = $1
+                WHERE question_id = $2`;
+            values = [questionLabel, questionId];
+        } else {
+            query = `UPDATE ${this.SCHEMA_NAME}.Question
+                SET question_label = $1, correct_answer = $2
+                WHERE question_id = $3`;
+            values = [questionLabel, correctAnswer, questionId];
+        }
+        await this.pool.query(query, values);
+
+        // Retreive the newly updated question
+        query = `SELECT * FROM ${this.SCHEMA_NAME}.Question
+            WHERE question_id = $1
+            LIMIT 1`;
+        values = [questionId];
+        return this.pool.query(query, values);
+    }
+    // Added services
+    async getAllRooms(): Promise<QueryResult> {
+        const query = `SELECT * FROM ${this.SCHEMA_NAME}.Room`;
+        return this.pool.query(query);
     }
 }

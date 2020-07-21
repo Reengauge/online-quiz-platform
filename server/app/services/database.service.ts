@@ -22,7 +22,7 @@ export class DatabaseService {
     private readonly SCHEMA_NAME: string = CONSTANTS.DB_SCHEMA_NAME;
 
     constructor() {
-        this.pool.connect().then((r: any) => console.log('connected'));
+        this.pool.connect();
     }
 
     /* DATABASE DEBUG */
@@ -216,8 +216,7 @@ export class DatabaseService {
 
     // Added services
     async getAllRooms(): Promise<QueryResult>  {
-        const values = [this.SCHEMA_NAME + '.Room'];
-        const query = `SELECT * FROM $1`;
-        return this.pool.query(query, values);
+        const query = `SELECT * FROM ${this.SCHEMA_NAME}.Room`;
+        return this.pool.query(query);
     }
 }

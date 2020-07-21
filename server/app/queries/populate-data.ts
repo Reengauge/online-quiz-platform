@@ -1,12 +1,13 @@
 export const data =
 `SET search_path = QUIZ_DB;
 
-INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('12345678', 'Physics 101', '21dn9ca82dniad3');
-INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('abcdefgh', 'Maths 201', '21dn9ca82dniad3');
+INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('12345678', 'Physics 101', 'GPHAuRkBNFX2EMntXh7tjP60gj43');
+INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('abcdefgh', 'Maths 201', 'GPHAuRkBNFX2EMntXh7tjP60gj43');
+INSERT INTO Room (event_key, room_name, presenter_id) VALUES ('a1b2c3d4', 'Chem 301', 'GPHAuRkBNFX2EMntXh7tjP60gj43');
 
 INSERT INTO Quiz (max_duration, title, room_id) VALUES (300, 'Last Week''s Lecture Recap', 1);
 INSERT INTO Quiz (max_duration, title, room_id) VALUES (360, 'Warm Up Quiz', 2);
-INSERT INTO Quiz (max_duration, title, room_id) VALUES (300, 'Class Recap', 2);
+INSERT INTO Quiz (max_duration, title, room_id) VALUES (300, 'Class Recap', 3);
 
 INSERT INTO Question (question_label, correct_answer, quiz_id) VALUES ('Jane is using a 14 cm long screwdriver to assemble a bookcase. She applied a force of 45 N to rotate the screw 180 degrees. How much work did she do?', '19.79 J', 1);
 INSERT INTO Question (question_label, correct_answer, quiz_id) VALUES ('What will occur when an object moves continuously around an internal axis?', 'The object will spin.', 1);

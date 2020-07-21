@@ -98,5 +98,15 @@ describe('DatabaseService', () => {
         await databaseService.getAllQuizzesByEventKey('12345678');
         expect(spy.calledOnce);
     });
+
+    it('#updateQuiz should send a PostgreSQL query', async () => {
+        await databaseService.updateQuiz('1', 1, 'test title');
+        expect(spy.calledTwice);
+    });
+
+    it('#updateQuestion should send a PostgreSQL query', async () => {
+        await databaseService.updateQuestion('1', 'test question', 'test answer');
+        expect(spy.calledTwice);
+    });
     
 });

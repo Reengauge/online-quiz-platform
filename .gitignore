@@ -14,4 +14,7 @@ coverage/
 # Google Cloud Tools
 cloud_sql_proxy
 
+# idea
+.idea/
+
 

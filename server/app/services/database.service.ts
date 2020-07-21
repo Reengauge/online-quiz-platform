@@ -48,8 +48,9 @@ export class DatabaseService {
         AND qn.quiz_id = qz.quiz_id
         ORDER BY qn.question_id`;
         const values = [eventKey];
-        console.log("i'm here");
-        return this.pool.query(query, values);
+        const response = this.pool.query(query, values);
+        console.log(response);
+        return response;
     }
 
     async getAllChoicesByQuestion(questionId: string): Promise<QueryResult> {
@@ -134,8 +135,8 @@ export class DatabaseService {
         }
 
         // Retrieve the question from the database
-        const query = `SELECT * FROM ${this.SCHEMA_NAME}.Question
-                WHERE quiz_id = $1
+        const query = `SELECT * FROM ${this.SCHEMA_NAME}.Question 
+                WHERE quiz_id = $1 
                 ORDER BY question_id DESC
                 LIMIT 1`;
         const values = [quizId.toString()];
@@ -151,7 +152,7 @@ export class DatabaseService {
     }
 
     async getAllAnswersByQuiz(quizId: string): Promise<QueryResult> {
-        const query = `SELECT a.answer_label, a.question_id, a.participant_id
+        const query = `SELECT a.answer_label, a.question_id, a.participant_id 
             FROM ${this.SCHEMA_NAME}.AnswerEntry a, ${this.SCHEMA_NAME}.Question q
             WHERE q.quiz_id = $1
             AND q.question_id = a.question_id `;
@@ -167,7 +168,7 @@ export class DatabaseService {
     }
 
     async getAllQuizzesByEventKey(eventKey: string): Promise<QueryResult> {
-        const query = `SELECT q.quiz_id, q.max_duration, q.title, q.room_id, *
+        const query = `SELECT q.quiz_id, q.max_duration, q.title, q.room_id
             FROM ${this.SCHEMA_NAME}.Quiz q, ${this.SCHEMA_NAME}.Room r
             WHERE r.event_key = $1
             AND r.room_id = q.room_id`;

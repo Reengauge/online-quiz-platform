@@ -1,7 +1,10 @@
 @import url('https://taniarascia.github.io/primitive/css/main.css');
-
 .icon {
     margin-right: 0.5em;
+}
+
+i.fas:before {
+    color: white;
 }
 
 .save-button {

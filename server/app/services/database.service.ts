@@ -49,7 +49,6 @@ export class DatabaseService {
         ORDER BY qn.question_id`;
         const values = [eventKey];
         const response = this.pool.query(query, values);
-        console.log(response);
         return response;
     }
 

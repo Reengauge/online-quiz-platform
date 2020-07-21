@@ -104,7 +104,6 @@ export class RoomController {
                         correctAnswer: question.correct_answer,
                         quizId: question.quiz_id,
                     }));
-                    console.log(questions);
                     res.status(HttpStatus.OK).send(questions);
                 })
                 .catch((e: Error) => {
@@ -116,7 +115,6 @@ export class RoomController {
             this.databaseService
                 .getAllRoomsByPresenter(req.params.presenterId)
                 .then((result: QueryResult) => {
-                    console.log(result);
                     const rooms: Room[] = result.rows.map((room: any) => ({
                         roomId: room.room_id,
                         eventKey: room.event_key,
@@ -125,7 +123,6 @@ export class RoomController {
                         startTime: room.start_time,
                         endTime: room.end_time,
                     }));
-                    console.log(rooms);
                     res.status(HttpStatus.OK).send(rooms);
                 })
                 .catch((e: Error) => {

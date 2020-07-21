@@ -8,6 +8,7 @@ import { RoomController } from './controllers/room.controller';
 import { ChoiceController } from './controllers/choice.controller';
 import { AnswerController } from './controllers/answer.controller';
 import { QuestionController } from './controllers/question.controller';
+import { QuizController } from './controllers/quiz.controller';
 
 export const containerBootstrapper: () => Promise<Container> = async () => {
     const container: Container = new Container();
@@ -20,6 +21,7 @@ export const containerBootstrapper: () => Promise<Container> = async () => {
     container.bind(Types.ChoiceController).to(ChoiceController);
     container.bind(Types.AnswerController).to(AnswerController);
     container.bind(Types.QuestionController).to(QuestionController);
+    container.bind(Types.QuizController).to(QuizController);
 
     return container;
 };

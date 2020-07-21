@@ -38,7 +38,11 @@ export class QuestionController {
                         questionId: question.question_id,
                         correctAnswer: question.correct_answer,
                         questionLabel: question.question_label,
+<<<<<<< HEAD
                         quizId: question.quiz_id,
+=======
+                        quizId: question.quiz_id
+>>>>>>> eec90fba6c39a6e2b1e945e7580e6fc228b1ffa3
                     }));
                     res.status(HttpStatus.OK).send(questions[0]);
                 })

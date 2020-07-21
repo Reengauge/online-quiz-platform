@@ -7,18 +7,17 @@ import Types from '../types';
 
 /*tslint:disable:no-any */
 describe('DatabaseService', () => {
-
     let databaseService: DatabaseService;
     let spy: sinon.SinonStub;
     const validQuestionArray = {
         rows: [
-          {
-            question_id: 1,
-            question_label: 'What is your name?',
-            correct_answer: 'John Doe',
-            quiz_id: 1
-          }
-        ]
+            {
+                question_id: 1,
+                question_label: 'What is your name?',
+                correct_answer: 'John Doe',
+                quiz_id: 1,
+            },
+        ],
     };
 
     before(async () => {
@@ -105,5 +104,4 @@ describe('DatabaseService', () => {
         await databaseService.updateQuestion('1', 'test question', 'test answer');
         expect(spy.calledTwice);
     });
-
 });

@@ -33,7 +33,7 @@ const Navbar = () => {
 
             if (user != null) {
                 var io = user.uid;
-                window.alert('success ' + io);
+                // window.alert('success ' + io);
                 loadName(io);
             }
         } else {
@@ -46,22 +46,14 @@ const Navbar = () => {
         // avatarURL: './demo/faces/female/25.jpg',
         name,
         description: 'Administrator',
-        options: [
-            { icon: 'user', value: 'Profile' },
-            { icon: 'settings', value: 'Settings' },
-            { icon: 'mail', value: 'Inbox', badge: '6' },
-            { icon: 'send', value: 'Message' },
-            { isDivider: true },
-            { icon: 'help-circle', value: 'Need help?' },
-            { icon: 'log-out', value: 'Sign out', to: 'signout' },
-        ],
+        options: [{ icon: 'log-out', value: 'Sign out', to: 'signout' }],
     };
 
     const items = (
         <Nav>
             <Nav.Item active value="Manage Engaugements" icon="globe" />
 
-            <Nav.Item icon="plus" to="/signup/apartments">
+            <Nav.Item icon="plus" to="/create">
                 Add Engaugement
             </Nav.Item>
         </Nav>

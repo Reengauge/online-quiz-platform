@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
+import { QueryResult } from 'pg';
+import { Question } from '../common/interfaces/question';
 import { HttpStatus } from '../http-status';
 import { DatabaseService } from '../services/database.service';
-import { Question } from '../../../common/interfaces/question';
 import Types from '../types';
-import { QueryResult } from 'pg';
 
 @injectable()
 export class QuestionController {
@@ -21,7 +21,7 @@ export class QuestionController {
                         questionId: question.question_id,
                         correctAnswer: question.correct_answer,
                         questionLabel: question.question_label,
-                        quizId: question.quiz_id
+                        quizId: question.quiz_id,
                     }));
                     res.status(HttpStatus.CREATED).send(questions[0]);
                 })

@@ -4,13 +4,13 @@ import * as cors from 'cors';
 import * as express from 'express';
 import { inject, injectable } from 'inversify';
 import * as logger from 'morgan';
-import { DatabaseController } from './controllers/database.controller';
-import Types from './types';
-import { RoomController } from './controllers/room.controller';
-import { ChoiceController } from './controllers/choice.controller';
 import { AnswerController } from './controllers/answer.controller';
+import { ChoiceController } from './controllers/choice.controller';
+import { DatabaseController } from './controllers/database.controller';
 import { QuestionController } from './controllers/question.controller';
 import { QuizController } from './controllers/quiz.controller';
+import { RoomController } from './controllers/room.controller';
+import Types from './types';
 
 @injectable()
 export class Application {

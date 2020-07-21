@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
 import { QueryResult } from 'pg';
-import { Quiz } from '../../../common/interfaces/quiz';
+import { Quiz } from '../common/interfaces/quiz';
 import { HttpStatus } from '../http-status';
 import { DatabaseService } from '../services/database.service';
 import Types from '../types';
@@ -21,7 +21,7 @@ export class QuizController {
                         quizId: quiz.quiz_id,
                         maxDuration: quiz.max_duration,
                         title: quiz.title,
-                        roomId: quiz.room_id
+                        roomId: quiz.room_id,
                     }));
                     res.status(HttpStatus.OK).send(quizzes[0]);
                 })

@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
 import { ConnectionConfig, Pool, QueryResult } from 'pg';
 import 'reflect-metadata';
+import { v4 as uuidv4 } from 'uuid';
 import * as CONSTANTS from '../constants';
 import { data } from '../queries/populate-data';
 import { schema } from '../queries/schema';
-import { v4 as uuidv4 } from 'uuid';
 
 @injectable()
 export class DatabaseService {
@@ -18,6 +18,7 @@ export class DatabaseService {
     };
 
     private pool: Pool = new Pool(this.connectionConfig);
+
     private readonly SCHEMA_NAME: string = CONSTANTS.DB_SCHEMA_NAME;
 
     constructor() {
@@ -40,13 +41,14 @@ export class DatabaseService {
     /* CONTENT */
 
     async getAllQuestionsByEventKey(eventKey: string): Promise<QueryResult> {
-        const query = `SELECT qn.question_id, qn.question_label, qn.correct_answer, qn.quiz_id 
+        const query = `SELECT qn.question_id, qn.question_label, qn.correct_answer, qn.quiz_id
         FROM ${this.SCHEMA_NAME}.Question qn, ${this.SCHEMA_NAME}.Quiz qz, ${this.SCHEMA_NAME}.Room r
         WHERE r.event_key = $1
         AND r.room_id = qz.room_id
         AND qn.quiz_id = qz.quiz_id
         ORDER BY qn.question_id`;
         const values = [eventKey];
+        console.log("i'm here");
         return this.pool.query(query, values);
     }
 
@@ -68,7 +70,7 @@ export class DatabaseService {
         let existingKeys;
         do {
             // Generate a new random value on each call
-            eventKey = uuidv4().slice(0,8);
+            eventKey = uuidv4().slice(0, 8);
 
             // Verify that the value doesn't already exist in the database
             existingKeys = await this.pool.query(`
@@ -97,46 +99,49 @@ export class DatabaseService {
         await this.pool.query(query, values);
 
         // Retreive the quiz from the database
-        query = `SELECT * FROM ${this.SCHEMA_NAME}.Quiz 
-            WHERE room_id = $1 
+        query = `SELECT * FROM ${this.SCHEMA_NAME}.Quiz
+            WHERE room_id = $1
             ORDER BY quiz_id DESC
             LIMIT 1`;
         values = [roomId];
         return this.pool.query(query, values);
     }
 
-    async createQuestionAndChoices(questionLabel: string, correctAnswer: string | undefined, 
-        quizId: number, choiceLabels: string[] | undefined): Promise<QueryResult> {
-            const question = await this.createQuestion(questionLabel, correctAnswer, quizId);
-            if (choiceLabels !== undefined) {
-                const questionId = question.rows[0]['question_id'];
-                await this.createChoices(questionId, choiceLabels);
-            }
-            return question;
+    async createQuestionAndChoices(
+        questionLabel: string,
+        correctAnswer: string | undefined,
+        quizId: number,
+        choiceLabels: string[] | undefined,
+    ): Promise<QueryResult> {
+        const question = await this.createQuestion(questionLabel, correctAnswer, quizId);
+        if (choiceLabels !== undefined) {
+            const questionId = question.rows[0]['question_id'];
+            await this.createChoices(questionId, choiceLabels);
+        }
+        return question;
+    }
+
+    async createQuestion(questionLabel: string, correctAnswer: string | undefined, quizId: number): Promise<QueryResult> {
+        // Create the question in the database
+        if (correctAnswer !== undefined) {
+            const query = `INSERT INTO ${this.SCHEMA_NAME}.Question (question_label, correct_answer, quiz_id) VALUES ($1,$2,$3);`;
+            const values = [questionLabel, correctAnswer, quizId.toString()];
+            await this.pool.query(query, values);
+        } else {
+            const query = `INSERT INTO ${this.SCHEMA_NAME}.Question (question_label, quiz_id) VALUES ($1,$2);`;
+            const values = [questionLabel, quizId.toString()];
+            await this.pool.query(query, values);
         }
 
-    async createQuestion(questionLabel: string, correctAnswer: string | undefined, 
-        quizId: number): Promise<QueryResult> {
-            // Create the question in the database
-            if (correctAnswer !== undefined) {
-                const query = `INSERT INTO ${this.SCHEMA_NAME}.Question (question_label, correct_answer, quiz_id) VALUES ($1,$2,$3);`;
-                const values = [questionLabel, correctAnswer, quizId.toString()];
-                await this.pool.query(query, values);
-            } else {
-                const query = `INSERT INTO ${this.SCHEMA_NAME}.Question (question_label, quiz_id) VALUES ($1,$2);`;
-                const values = [questionLabel, quizId.toString()];
-                await this.pool.query(query, values);
-            }
-
-            // Retrieve the question from the database
-            const query  = `SELECT * FROM ${this.SCHEMA_NAME}.Question 
-                WHERE quiz_id = $1 
+        // Retrieve the question from the database
+        const query = `SELECT * FROM ${this.SCHEMA_NAME}.Question
+                WHERE quiz_id = $1
                 ORDER BY question_id DESC
                 LIMIT 1`;
-            const values = [quizId.toString()];
-            return this.pool.query(query, values);
-        }
-    
+        const values = [quizId.toString()];
+        return this.pool.query(query, values);
+    }
+
     async createChoices(questionId: string, choiceLabels: string[]): Promise<void> {
         const query = `INSERT INTO ${this.SCHEMA_NAME}.Choice (choice_label, question_id) VALUES ($1,$2);`;
         for (const choiceLabel of choiceLabels) {
@@ -146,7 +151,7 @@ export class DatabaseService {
     }
 
     async getAllAnswersByQuiz(quizId: string): Promise<QueryResult> {
-        const query  = `SELECT a.answer_label, a.question_id, a.participant_id 
+        const query = `SELECT a.answer_label, a.question_id, a.participant_id
             FROM ${this.SCHEMA_NAME}.AnswerEntry a, ${this.SCHEMA_NAME}.Question q
             WHERE q.quiz_id = $1
             AND q.question_id = a.question_id `;
@@ -155,14 +160,14 @@ export class DatabaseService {
     }
 
     async getRoomByEventKey(eventKey: string): Promise<QueryResult> {
-        const query  = `SELECT * FROM ${this.SCHEMA_NAME}.Room
+        const query = `SELECT * FROM ${this.SCHEMA_NAME}.Room
             WHERE event_key = $1`;
         const values = [eventKey];
         return this.pool.query(query, values);
     }
 
     async getAllQuizzesByEventKey(eventKey: string): Promise<QueryResult> {
-        const query  = `SELECT q.quiz_id, q.max_duration, q.title, q.room_id
+        const query = `SELECT q.quiz_id, q.max_duration, q.title, q.room_id, *
             FROM ${this.SCHEMA_NAME}.Quiz q, ${this.SCHEMA_NAME}.Room r
             WHERE r.event_key = $1
             AND r.room_id = q.room_id`;
@@ -172,7 +177,7 @@ export class DatabaseService {
 
     async updateQuiz(quizId: string, maxDuration: number, title: string): Promise<QueryResult> {
         // Update the quiz in the database
-        let query  = `UPDATE ${this.SCHEMA_NAME}.Quiz
+        let query = `UPDATE ${this.SCHEMA_NAME}.Quiz
             SET max_duration = $1, title = $2
             WHERE quiz_id = $3`;
         let values = [maxDuration, title, quizId];
@@ -187,7 +192,7 @@ export class DatabaseService {
     }
 
     async updateQuestion(questionId: string, questionLabel: string, correctAnswer: string | undefined): Promise<QueryResult> {
-        let query  = '';
+        let query = '';
         let values;
 
         // Update the question in the database
@@ -210,5 +215,10 @@ export class DatabaseService {
             LIMIT 1`;
         values = [questionId];
         return this.pool.query(query, values);
+    }
+    // Added services
+    async getAllRooms(): Promise<QueryResult> {
+        const query = `SELECT * FROM ${this.SCHEMA_NAME}.Room`;
+        return this.pool.query(query);
     }
 }

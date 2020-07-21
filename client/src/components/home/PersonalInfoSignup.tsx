@@ -75,8 +75,8 @@ const PersonalInfoSignup = () => {
                 console.log(err);
             });
 
-        // history.push('/signup/apartments');
-        // history.go();
+        history.push('/manage');
+        history.go(0);
     };
 
     // TODO: show this error to the user instead of just logging it

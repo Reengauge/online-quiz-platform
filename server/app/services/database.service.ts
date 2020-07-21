@@ -22,7 +22,7 @@ export class DatabaseService {
     private readonly SCHEMA_NAME: string = CONSTANTS.DB_SCHEMA_NAME;
 
     constructor() {
-        this.pool.connect().then((r: any) => console.log('connected'));
+        this.pool.connect();
     }
 
     /* DATABASE DEBUG */

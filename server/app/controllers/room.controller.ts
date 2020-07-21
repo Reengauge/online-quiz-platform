@@ -112,7 +112,6 @@ export class RoomController {
                 });
         });
 
-        // new method added
         router.get('/', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getAllRooms()

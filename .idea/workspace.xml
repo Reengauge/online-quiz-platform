@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="db8bea79-aad4-4eb0-9df5-b77d2a76988a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/home/Signin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/home/Signin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/home/AdminPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/home/AdminPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +45,7 @@
       <recent name="$PROJECT_DIR$/server/app" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.npm-backend">
+  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration default="true" type="NodeJSConfigurationType" path-to-js-file="$PROJECT_DIR$/server/app/www.ts">
       <method v="2" />
     </configuration>
@@ -115,7 +115,7 @@
       <workItem from="1595213542624" duration="107000" />
       <workItem from="1595268552085" duration="353000" />
       <workItem from="1595268978271" duration="923000" />
-      <workItem from="1595270316812" duration="9303000" />
+      <workItem from="1595270316812" duration="10189000" />
     </task>
     <task id="LOCAL-00001" summary="wthell">
       <created>1595289299949</created>
@@ -231,17 +231,5 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="385" y="210" key="run.anything.popup/0.0.1440.900@0.0.1440.900" timestamp="1593967683156" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/app/controllers/room.controller.ts</url>
-          <line>45</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

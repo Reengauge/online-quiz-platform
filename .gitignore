@@ -1,5 +1,4 @@
-node_modules/
-
+/node_modules/
 
 #ignoring .vscode folder but we keep some files for debuging
 /.vscode/chrome
@@ -15,6 +14,6 @@ coverage/
 cloud_sql_proxy
 
 # idea
-.idea/
+/.idea/
 
 

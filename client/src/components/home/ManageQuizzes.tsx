@@ -6,6 +6,13 @@ import { Card } from 'reactstrap';
 // const logo = require('../assets/leasemagnets-logo.png');
 
 const Navbar = () => {
+    // var user = auth.currentUser;
+    // useEffect(() => {
+    //     if (auth.currentUser.uid) {
+    //         loadName(auth.currentUser.uid);
+    //     }
+    // }, [auth.currentUser.uid]);
+
     const [name, setName] = useState('');
 
     const loadName = async (uid: any) => {
@@ -20,11 +27,20 @@ const Navbar = () => {
         }
     };
 
-    // useEffect(() => {
-    //     if (auth.currentUser.uid) {
-    //         loadName(auth.currentUser.uid);
-    //     }
-    // }, [auth.currentUser.uid]);
+    auth.onAuthStateChanged(function (user: any) {
+        if (user) {
+            var user: any = auth.currentUser;
+
+            if (user != null) {
+                var io = user.uid;
+                window.alert('success ' + io);
+                loadName(io);
+            }
+        } else {
+            // No user is signed in.
+            console.log('no user found');
+        }
+    });
 
     const accountDropdownProps = {
         // avatarURL: './demo/faces/female/25.jpg',
@@ -75,7 +91,7 @@ const ManageQuizzes = () => {
                         <Table.Body>
                             <Table.Row>
                                 <Table.Col>1</Table.Col>
-                                <Table.Col>Jon</Table.Col>
+                                <Table.Col>Amulya Parmar</Table.Col>
                                 <Table.Col>
                                     <Button color="primary">Edit</Button>
                                 </Table.Col>

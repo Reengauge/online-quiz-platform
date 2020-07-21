@@ -112,9 +112,9 @@ export class RoomController {
                 });
         });
 
-        router.get('/', (req: Request, res: Response, next: NextFunction) => {
+        router.get('/presenter/:presenterId', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
-                .getAllRooms()
+                .getAllRoomsByPresenter(req.params.presenterId)
                 .then((result: QueryResult) => {
                     console.log(result);
                     const rooms: Room[] = result.rows.map((room: any) => ({

@@ -5,17 +5,24 @@ import { useInputValue } from '../hooks';
 import Question from '../models/Question';
 import ListController from '../controllers/ListController';
 import axios from 'axios';
+import { auth, firestore } from '../../utils/Firebase';
+import '../builder.css';
 
-import "../builder.css";
-
-function createQuiz(choiceNum: any) {
+function createQuiz(questionDetails: any) {
     return axios({
-        url: 'http://localhost:3000/api/rooms/' + String(choiceNum),
-        method: 'get',
-    }).then((response) => {
-        // console.log(response);
-        return response.data;
-    });
+        url: 'http://localhost:3000/api/rooms/' + String(questionDetails),
+        method: 'post',
+        data: {
+            presenterId: auth.currentUser?.uid,
+        },
+    })
+        .then((response) => {
+            console.log(response);
+            return response.data;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
 
 export default function SurveyBuilder() {

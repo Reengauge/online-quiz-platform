@@ -30,13 +30,6 @@ const SignIn = () => {
     };
 
     return (
-<<<<<<< HEAD
-        <div>
-            <h2>Quiz builder</h2>
-            <a href="/">go back</a>
-            <button>+</button>
-            <div className="quiz-element"></div>
-=======
         <div className="SignIn">
             <Grid.Row className={classes.ctr}>
                 <Grid.Col className={classes.right}>
@@ -84,7 +77,6 @@ const SignIn = () => {
                     </Page>
                 </Grid.Col>
             </Grid.Row>
->>>>>>> 0764a75e1c74e8ee71d457ddb9388d527d62a36e
         </div>
     );
 };

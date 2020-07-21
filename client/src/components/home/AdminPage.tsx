@@ -1,19 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 
+var roomObj;
+
 function getAllRooms() {
     return axios({
         url: 'http://localhost:3000/api/rooms/',
         method: 'get',
     }).then((response) => {
         console.log(response);
-        return response.data;
+        roomObj = response.data;
+        for (let i = 0; i < roomObj.length; i++) {
+            console.log(roomObj[i]);
+        }
     });
 }
 
 const AdminPage: React.FunctionComponent = () => {
-
-    var rooms = [];
     getAllRooms();
 
     return (
@@ -25,11 +28,9 @@ const AdminPage: React.FunctionComponent = () => {
                 Create new room
             </button>
             <h4>List of rooms</h4>
-            <table>
-
-            </table>
+            {/*<table border={}></table>*/}
             <button>
-            <i className="fas fa-plus icon" />
+                <i className="fas fa-plus icon" />
                 Create new quiz
             </button>
         </div>

@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="db8bea79-aad4-4eb0-9df5-b77d2a76988a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/builder/models/Question.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/builder/models/Question.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/builder/models/Question.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/builder/models/Question.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +115,7 @@
       <workItem from="1595213542624" duration="107000" />
       <workItem from="1595268552085" duration="353000" />
       <workItem from="1595268978271" duration="923000" />
-      <workItem from="1595270316812" duration="10945000" />
+      <workItem from="1595270316812" duration="11159000" />
     </task>
     <task id="LOCAL-00001" summary="wthell">
       <created>1595289299949</created>

@@ -23,10 +23,7 @@
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.1",
         "reactstrap": "^8.5.1",
-<<<<<<< HEAD
         "styled-components": "^5.1.1",
-=======
->>>>>>> eec90fba6c39a6e2b1e945e7580e6fc228b1ffa3
         "tabler-react": "^1.30.1",
         "typescript": "^3.9.3"
     },

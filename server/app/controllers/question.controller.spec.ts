@@ -59,9 +59,4 @@ describe('QuestionController', () => {
                 expect(response.body).to.have.property('quizId');
             });
     });
-
-<<<<<<< HEAD
-=======
-    
->>>>>>> eec90fba6c39a6e2b1e945e7580e6fc228b1ffa3
 });

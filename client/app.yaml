@@ -1,14 +1,9 @@
 runtime: nodejs10
 
 handlers:
-        - url:/.*
+        - url: /
           static_files: build/index.html
           upload: build/index.html
 
-        - url:/
+        - url: /
           static_dir: build
-
-        - url:/service-worker.js
-          static_files: build/service-worker.js
-          upload: build/service-worker.js
-          secure: always

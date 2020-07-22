@@ -7,8 +7,11 @@ import axios from 'axios';
 // import Popup from './Popup';
 import Popup from "reactjs-popup";
 import '../stylesheets/managequizzes.css';
+// import { useHistory } from 'react-router-dom';
 
 const ManageQuizzes = () => {
+    // const history = useHistory();
+
     const [name, setName] = useState('');
     const [rooms, setRooms] = useState([{ eventKey: '12345678', name: 'Sample Quiz' }]);
     var QRCode = require('qrcode.react');

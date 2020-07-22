@@ -61,12 +61,12 @@ const SignIn = () => {
                                                             Sign Up
                                                         </Link>
                                                     </Text>
-                                                    <Text className="text-center">
+                                                    {/* <Text className="text-center">
                                                         Trouble logging in?{' '}
                                                         <Link to="/resetpassword" className="font-weight-bold">
                                                             Reset Password
                                                         </Link>
-                                                    </Text>
+                                                    </Text> */}
                                                 </Form>
                                             </Card.Body>
                                         </Card>

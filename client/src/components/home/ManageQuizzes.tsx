@@ -4,6 +4,9 @@ import { auth, firestore } from '../utils/Firebase';
 import { Card } from 'reactstrap';
 import { Icon } from 'tabler-react';
 import axios from 'axios';
+// import Popup from './Popup';
+import Popup from "reactjs-popup";
+import '../stylesheets/managequizzes.css';
 // import { useHistory } from 'react-router-dom';
 
 const ManageQuizzes = () => {
@@ -11,6 +14,7 @@ const ManageQuizzes = () => {
 
     const [name, setName] = useState('');
     const [rooms, setRooms] = useState([{ eventKey: '12345678', name: 'Sample Quiz' }]);
+    var QRCode = require('qrcode.react');
 
     const Navbar = () => {
         const loadName = async (uid: any) => {
@@ -110,7 +114,19 @@ const ManageQuizzes = () => {
                                             {'          '}
                                             <Button color="primary">Analytics</Button>
                                             {'          '}
-                                            <Button color="green">Share</Button>
+                                            <Popup
+                                                trigger={<button className="button"> Share </button>}
+                                                modal
+                                                closeOnDocumentClick
+                                            >
+                                                <span>
+                                                    Event key: {room.eventKey}
+                                                    <br></br>
+                                                    Link: <a>http://rengauge.com/quiz?number={room.eventKey}</a>
+                                                    <br></br>
+                                                    <QRCode value={ "http://rengauge.com/quiz?number=" + room.eventKey } />
+                                                </span>
+                                            </Popup>
                                             {'          '}
                                             <a
                                                 href={'https://twitter.com/intent/tweet?url=' + 'http://rengauge.com/quiz?number=' + room.eventKey}
@@ -129,6 +145,7 @@ const ManageQuizzes = () => {
                     </Table>
                 </Card>
             </Container>
+
         </>
     );
 };

@@ -217,10 +217,15 @@ export class DatabaseService {
         return this.pool.query(query, values);
     }
 
-    // Added services
     async getAllRoomsByPresenter(presenterId: string): Promise<QueryResult> {
         const query = `SELECT * FROM ${this.SCHEMA_NAME}.Room WHERE presenter_id = $1`;
         const values = [presenterId]; 
+        return this.pool.query(query, values);
+    }
+
+    async getAllAnswersByQuestion(questionId: string): Promise<QueryResult> {
+        const query = `SELECT * FROM ${this.SCHEMA_NAME}.AnswerEntry WHERE question_id = $1`;
+        const values = [questionId]; 
         return this.pool.query(query, values);
     }
 }

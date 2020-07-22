@@ -1,23 +1,49 @@
 import React from 'react';
 import axios from 'axios';
 
-var roomObj;
+// var roomObj: string | any[];
 
-function getAllRooms() {
-    return axios({
-        url: 'http://localhost:3000/api/rooms/',
-        method: 'get',
-    }).then((response) => {
-        console.log(response);
-        roomObj = response.data;
-        for (let i = 0; i < roomObj.length; i++) {
-            console.log(roomObj[i]);
-        }
-    });
-}
+// function getAllRooms() {
+//     return axios({
+//         url: 'http://localhost:3000/api/rooms/presenter/21dn9ca82dniad3/',
+//         method: 'get',
+//     }).then((response) => {
+//         response.data.map(rooms) => ({
+//             name: `${rooms.name}`,
+//             roomId: `${rooms.roomId}`,
+//             startTime: `${rooms.startTime}`,
+//             endTime: `${rooms.endTime}`,
+//         }))
+//         console.log(rooms);
+//         roomObj = response.data;
+//         for (let i = 0; i < roomObj.length; i++) {
+//             // console.log(roomObj[i]);
+//         }
+//     });
+// }
 
 const AdminPage: React.FunctionComponent = () => {
-    getAllRooms();
+
+    // function getUsers() {
+    //     axios
+    //         .get("https://randomuser.me/api/?results=5")
+    //         .then(response =>
+    //             response.data.results.map(user => ({
+    //                 name: `${user.name.first} ${user.name.last}`,
+    //                 username: `${user.login.username}`,
+    //                 email: `${user.email}`,
+    //                 image: `${user.picture.thumbnail}`
+    //             }))
+    //         )
+    //         .then(users => {
+    //             this.setState({
+    //                 users,
+    //                 isLoading: false
+    //             });
+    //         })
+    //         .catch(error => this.setState({ error, isLoading: false }));
+    // }
+    // // console.log(rooms);
 
     return (
         <div>
@@ -28,7 +54,24 @@ const AdminPage: React.FunctionComponent = () => {
                 Create new room
             </button>
             <h4>List of rooms</h4>
-            {/*<table border={}></table>*/}
+            {/*<table cellPadding={5}>*/}
+            {/*    <thead>*/}
+            {/*    <tr>*/}
+            {/*        <td>Key</td>*/}
+            {/*        <td>Value</td>*/}
+            {/*    </tr>*/}
+            {/*    </thead>*/}
+            {/*    <tbody>*/}
+            {/*    {*/}
+            {/*        Object.keys(roomObj).map(function(element) {*/}
+            {/*            return <tr>*/}
+            {/*                <td>{element}</td>*/}
+            {/*                /!*<td>{roomObj[element]}</td>*!/*/}
+            {/*            </tr>;*/}
+            {/*        })*/}
+            {/*    }*/}
+            {/*    </tbody>*/}
+            {/*</table>*/}
             <button>
                 <i className="fas fa-plus icon" />
                 Create new quiz

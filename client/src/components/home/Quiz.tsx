@@ -92,52 +92,52 @@ const Quiz: React.FunctionComponent = () => {
 
     return (
         <div>
-            <div
-                className="chat-header"
-                style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999, borderRadius: '10px 10px 0px 0px' }}
-            >
-                <h3>{quizObject.header}</h3>
-                <p>{quizObject.subtitle}</p>
-            </div>
-            <div>
-                <button>Get Questions for quiz 1</button>
-            </div>
-            <div className="chat-screen">
-                <Conversation
-                    className="conversation"
-                    onSubmit={(Response: any) => {
-                        console.log(Response);
-                        console.log('will post to: ', quizObject.id);
-                    }}
-                    chatOptions={{
-                        introText: quizObject.introText,
-                        submitText: quizObject.submitText,
-                    }}
-                >
-                    {quizObject.questions.map((question, index) => {
-                        if (question.choices.length === 0) {
-                            return <Question id="index"> {question.question} </Question>;
-                        }
-                        return (
-                            <Select id={index} question={question.question}>
-                                {question.choices.map((choice, index2) => (
-                                    <Option value={index2}>{choice}</Option>
-                                ))}
-                            </Select>
-                        );
-                    })}
-                </Conversation>
-            </div>
+            {/*<div*/}
+            {/*    className="chat-header"*/}
+            {/*    style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999, borderRadius: '10px 10px 0px 0px' }}*/}
+            {/*>*/}
+            {/*    <h3>{quizObject.header}</h3>*/}
+            {/*    <p>{quizObject.subtitle}</p>*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*    <button>Get Questions for quiz 1</button>*/}
+            {/*</div>*/}
+            {/*<div className="chat-screen">*/}
+            {/*    <Conversation*/}
+            {/*        className="conversation"*/}
+            {/*        onSubmit={(Response: any) => {*/}
+            {/*            console.log(Response);*/}
+            {/*            console.log('will post to: ', quizObject.id);*/}
+            {/*        }}*/}
+            {/*        chatOptions={{*/}
+            {/*            introText: quizObject.introText,*/}
+            {/*            submitText: quizObject.submitText,*/}
+            {/*        }}*/}
+            {/*    >*/}
+            {/*        {quizObject.questions.map((question, index) => {*/}
+            {/*            if (question.choices.length === 0) {*/}
+            {/*                return <Question id="index"> {question.question} </Question>;*/}
+            {/*            }*/}
+            {/*            return (*/}
+            {/*                <Select id={index} question={question.question}>*/}
+            {/*                    {question.choices.map((choice, index2) => (*/}
+            {/*                        <Option value={index2}>{choice}</Option>*/}
+            {/*                    ))}*/}
+            {/*                </Select>*/}
+            {/*            );*/}
+            {/*        })}*/}
+            {/*    </Conversation>*/}
+            {/*</div>*/}
             {isLoading ? (
                 <>
-                    <button
-                        onClick={() => {
-                            console.log('thequizobject: ', quizObject);
-                            setLoading(false);
-                        }}
-                    >
-                        Finish loading for Quiz {quizObject['id']}
-                    </button>
+                    {/*<button*/}
+                    {/*    onClick={() => {*/}
+                    {/*        console.log('thequizobject: ', quizObject);*/}
+                    {/*        setLoading(false);*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    {/*    Finish loading for Quiz {quizObject['id']}*/}
+                    {/*</button>*/}
                 </>
             ) : (
                 <>
@@ -149,9 +149,9 @@ const Quiz: React.FunctionComponent = () => {
                         <p>{quizObject.subtitle}</p>
                     </div>
                     <div>
-                        <button onClick={() => getQuiz('123456')}>Get Questions for quiz 1</button>
-                        <button onClick={() => getChoice('1')}>Get choices for question 1</button>
-                        <button onClick={() => console.log(quizObject)}>Quiz object console log</button>
+                        <button onClick={() => getQuiz('123456')} hidden>Get Questions for quiz 1</button>
+                        <button onClick={() => getChoice('1')} hidden>Get choices for question 1</button>
+                        <button onClick={() => console.log(quizObject)} hidden>Quiz object console log</button>
                     </div>
                     <div className="chat-screen">
                         <Conversation

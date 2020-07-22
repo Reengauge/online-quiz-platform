@@ -26,8 +26,8 @@ const HomePage: React.FunctionComponent = () => {
                 </h1>
                 <p className="participant">Join as a participant?</p>
                 <form action="/quiz">
-                    <span className="hashtag">#</span>
-                    <input type="text" id="number" name="number" placeholder="Enter your event code" autoFocus></input>
+                    {/*<span className="hashtag">#</span>*/}
+                    <input type="text" id="number" name="number" placeholder="# Enter your event code" autoFocus></input>
                     <input type="submit" id="submit" value="Submit" hidden></input>
                 </form>
                 <p className="signin">

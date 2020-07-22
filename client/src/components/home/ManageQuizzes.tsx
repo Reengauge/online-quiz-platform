@@ -122,7 +122,7 @@ const ManageQuizzes = () => {
                                                 <span>
                                                     Event key: {room.eventKey}
                                                     <br></br>
-                                                    Link: <a>http://rengauge.com/quiz?number={room.eventKey}</a>
+                                                    Link: <a href={"http://rengauge.com/quiz?number=" + room.eventKey}>http://rengauge.com/quiz?number={room.eventKey}</a>
                                                     <br></br>
                                                     <QRCode value={ "http://rengauge.com/quiz?number=" + room.eventKey } />
                                                 </span>

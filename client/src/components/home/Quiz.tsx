@@ -102,7 +102,7 @@ const Quiz: React.FunctionComponent = () => {
 
     return (
         <div>
-            <div
+            {/* <div
                 className="chat-header"
                 style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999, borderRadius: '10px 10px 0px 0px' }}
             >
@@ -136,18 +136,9 @@ const Quiz: React.FunctionComponent = () => {
                         );
                     })}
                 </Conversation>
-            </div>
+            </div> */}
             {isLoading ? (
-                <>
-                    <button
-                        onClick={() => {
-                            console.log('thequizobject: ', quizObject);
-                            setLoading(false);
-                        }}
-                    >
-                        Finish loading for Quiz {quizObject['id']}
-                    </button>
-                </>
+                <>Loading your quiz...</>
             ) : (
                 <>
                     <div
@@ -156,11 +147,6 @@ const Quiz: React.FunctionComponent = () => {
                     >
                         <h3>{quizObject.header}</h3>
                         <p>{quizObject.subtitle}</p>
-                    </div>
-                    <div>
-                        <button onClick={() => getQuiz('123456')}>Get Questions for quiz 1</button>
-                        <button onClick={() => getChoice('1')}>Get choices for question 1</button>
-                        <button onClick={() => console.log(quizObject)}>Quiz object console log</button>
                     </div>
                     <div className="chat-screen">
                         <Conversation

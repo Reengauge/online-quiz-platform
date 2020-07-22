@@ -56,7 +56,7 @@ const Navbar = () => {
     const accountDropdownProps = {
         // avatarURL: './demo/faces/female/25.jpg',
         name,
-        description: 'Administrator',
+        description: 'Teacher',
         options: [{ icon: 'log-out', value: 'Sign out', to: 'signout' }],
     };
 
@@ -83,6 +83,8 @@ const ManageQuizzes = () => {
     return (
         <>
             <Navbar />
+            <br />
+            <br />
             <Container>
                 <Card>
                     <Table>

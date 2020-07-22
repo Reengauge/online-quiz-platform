@@ -8,23 +8,6 @@ import axios from 'axios';
 import { auth, firestore } from '../../utils/Firebase';
 import '../builder.css';
 
-function createQuiz(questionDetails: any) {
-    return axios({
-        url: 'http://localhost:3000/api/rooms/' + String(questionDetails),
-        method: 'post',
-        data: {
-            presenterId: auth.currentUser?.uid,
-        },
-    })
-        .then((response) => {
-            console.log(response);
-            return response.data;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
 export default function SurveyBuilder() {
     const [title, handleChangeTitle] = useInputValue('New Survey');
     const [questions, setQuestions] = useState([
@@ -35,6 +18,77 @@ export default function SurveyBuilder() {
     ]);
 
     const listController = new ListController(questions, setQuestions);
+
+    async function createQuestions(quizId: any) {
+        // return axios({
+        //     url: 'http://localhost:3000/api/room/' + String(roomId) + '/quizzes',
+        //     method: 'post',
+        //     data: {
+        //         maxDuration: 600,
+        //         title: title,
+        //     },
+        // }).then((response) => {
+        //     console.log('quiz created: ', response);
+        //     return response.data;
+        // });
+
+        let questionSaveBuffer = [];
+        for (var i = 0; i < questions.length; i++) {
+            questionSaveBuffer.push(
+                axios({
+                    url: 'http://localhost:3000/api/questions/',
+                    method: 'post',
+                    data: {
+                        questionLabel: questions[i].text,
+                        choiceLabels: questions[i].options,
+                        quizId: quizId,
+                    },
+                }).then((response: any) => {
+                    console.log('questions saved: ', response);
+                    return response.data;
+                }),
+            );
+        }
+
+        await Promise.all(questionSaveBuffer).then((allQuestionsResp) => {
+            console.log('All questions saved: ', allQuestionsResp);
+        });
+    }
+
+    function createQuiz(roomId: any) {
+        return axios({
+            url: 'http://localhost:3000/api/rooms/' + String(roomId) + '/quizzes',
+            method: 'post',
+            data: {
+                maxDuration: 600,
+                title: title,
+            },
+        }).then((response) => {
+            console.log('quiz created: ', response);
+            return response.data;
+        });
+    }
+
+    function createRoom() {
+        return axios({
+            url: 'http://localhost:3000/api/rooms/',
+            method: 'post',
+            data: {
+                presenterId: auth.currentUser?.uid,
+                name: title,
+            },
+        }).then((response) => {
+            console.log('room created: ', response);
+            return response.data;
+        });
+    }
+
+    async function createAll() {
+        console.log('questions raw: ', questions);
+        const roomData = await createRoom();
+        const quizData = await createQuiz(roomData.roomId);
+        const questionData = await createQuestions(quizData.quizId);
+    }
 
     return (
         <div className="small-container">
@@ -57,7 +111,7 @@ export default function SurveyBuilder() {
                 Add Question
             </button>
 
-            <button className="save-button" onClick={() => console.log(questions)}>
+            <button className="save-button" onClick={() => createAll()}>
                 <i className="fas fa-save icon" />
                 Create Quiz
             </button>

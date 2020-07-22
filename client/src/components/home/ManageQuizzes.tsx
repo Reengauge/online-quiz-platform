@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Nav, Site, Container, Table, Button } from 'tabler-react';
 import { auth, firestore } from '../utils/Firebase';
 import { Card } from 'reactstrap';
+import axios from 'axios';
 
 // const logo = require('../assets/leasemagnets-logo.png');
 
@@ -26,6 +27,16 @@ const Navbar = () => {
             console.log('Error getting document:', err);
         }
     };
+
+    function getRooms(choiceNum: any) {
+        return axios({
+            url: 'http://localhost:3000/api/rooms/presenter/',
+            method: 'get',
+        }).then((response: any) => {
+            console.log(response);
+            // return response.data;
+        });
+    }
 
     auth.onAuthStateChanged(function (user: any) {
         if (user) {

@@ -21,7 +21,7 @@ function getChoice(choiceNum: any) {
         url: 'http://localhost:3000/api/choices/' + String(choiceNum),
         method: 'get',
     }).then((response) => {
-        // console.log(response);
+        console.log('choices: ', response);
         return response.data;
     });
 }

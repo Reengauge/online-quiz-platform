@@ -8,15 +8,9 @@ import axios from 'axios';
 import { auth, firestore } from '../../utils/Firebase';
 import '../builder.css';
 import { Container, Site, Nav, Card } from 'tabler-react';
+import { useHistory } from 'react-router-dom';
 
 const Navbar = () => {
-    // var user = auth.currentUser;
-    // useEffect(() => {
-    //     if (auth.currentUser.uid) {
-    //         loadName(auth.currentUser.uid);
-    //     }
-    // }, [auth.currentUser.uid]);
-
     const [name, setName] = useState('');
 
     const loadName = async (uid: any) => {
@@ -90,39 +84,25 @@ export default function SurveyBuilder() {
     const listController = new ListController(questions, setQuestions);
 
     async function createQuestions(quizId: any) {
-        // return axios({
-        //     url: 'http://localhost:3000/api/room/' + String(roomId) + '/quizzes',
-        //     method: 'post',
-        //     data: {
-        //         maxDuration: 600,
-        //         title: title,
-        //     },
-        // }).then((response) => {
-        //     console.log('quiz created: ', response);
-        //     return response.data;
-        // });
-
-        let questionSaveBuffer = [];
+        var questionRespArr = [];
         for (var i = 0; i < questions.length; i++) {
-            questionSaveBuffer.push(
-                axios({
-                    url: 'http://localhost:3000/api/questions/',
-                    method: 'post',
-                    data: {
-                        questionLabel: questions[i].text,
-                        choiceLabels: questions[i].options,
-                        quizId: quizId,
-                    },
-                }).then((response: any) => {
-                    console.log('questions saved: ', response);
-                    return response.data;
-                }),
-            );
-        }
+            var questionRespData = await axios({
+                url: 'http://localhost:3000/api/questions/',
+                method: 'post',
+                data: {
+                    questionLabel: questions[i].text,
+                    choiceLabels: questions[i].options,
+                    quizId: quizId,
+                },
+            }).then((response: any) => {
+                console.log('questions saved: ', response);
+                return response.data;
+            });
 
-        await Promise.all(questionSaveBuffer).then((allQuestionsResp) => {
-            console.log('All questions saved: ', allQuestionsResp);
-        });
+            questionRespArr.push(questionRespData);
+        }
+        console.log('questionRespArr: ', questionRespArr);
+        return questionRespArr;
     }
 
     function createQuiz(roomId: any) {
@@ -153,11 +133,15 @@ export default function SurveyBuilder() {
         });
     }
 
+    const history = useHistory();
+
     async function createAll() {
         console.log('questions raw: ', questions);
         const roomData = await createRoom();
         const quizData = await createQuiz(roomData.roomId);
         const questionData = await createQuestions(quizData.quizId);
+        history.push('/manage');
+        history.go(0);
     }
 
     return (

@@ -7,7 +7,7 @@
     border: 1px #cfcece dashed;
 }
 
-.button {
+.buttonShare {
     font-family: "Roboto", Arial, sans-serif;
     color: #000000;
     cursor: pointer;
@@ -36,7 +36,8 @@
 card
 */
 .card {
-    font-size: 12px;
+    font-size: 18px;
+    text-align: center;
 }
 .card > .header {
     width: 100%;
@@ -45,8 +46,13 @@ card
     text-align: center;
 }
 
+.popup-content {
+    font-size: 30px;
+}
+
 .modal {
-    font-size: 12px;
+    font-size: 20px;
+    text-align: center;
 }
 .modal > .header {
     width: 100%;

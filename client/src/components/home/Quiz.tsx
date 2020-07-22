@@ -2,6 +2,7 @@ import { Conversation, Select, Question, Option } from 'react-conversation-form'
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/quiz.css';
 import axios from 'axios';
+import { auth, firestore } from '../utils/Firebase';
 
 const endpoint = `http://localhost:3000/api/rooms/12345678/questions`;
 
@@ -44,9 +45,18 @@ async function getQuiz(roomNum: any) {
     }).then(async (response) => {
         var quizObj = response.data;
         var roomInfo = await getRoom(roomNum);
-        // quizObject['subtitle'] = 'by ' + roomInfo['name'].toString();
-        quizObject['introText'] = "Hi there, it's " + roomInfo['presenterId'];
-        quizObject['header'] = 'Dynamic quiz title here';
+
+        const doc: any = await firestore.collection('users').doc(roomInfo['presenterId']).get();
+
+        if (doc.exists) {
+            quizObject['introText'] = "Hi there, it's " + doc.data().name;
+            quizObject['subtitle'] = 'by ' + doc.data().name;
+        } else {
+            quizObject['introText'] = 'Hi there!';
+            quizObject['subtitle'] = 'by Anonymous';
+        }
+
+        quizObject['header'] = roomInfo['name'];
 
         for (let i = 0; i < quizObj.length; i++) {
             console.log(quizObj[i]);
@@ -107,7 +117,6 @@ const Quiz: React.FunctionComponent = () => {
                     className="conversation"
                     onSubmit={(Response: any) => {
                         console.log(Response);
-                        console.log('will post to: ', quizObject.id);
                     }}
                     chatOptions={{
                         introText: quizObject.introText,
@@ -158,7 +167,6 @@ const Quiz: React.FunctionComponent = () => {
                             className="conversation"
                             onSubmit={async (Response: any) => {
                                 console.log(Response);
-                                console.log('will post to: ', quizObject.id);
 
                                 // Object.keys(Response).forEach(function (key) {
                                 //     Response[key].forEach(function (elem: any, index: any) {
@@ -167,14 +175,17 @@ const Quiz: React.FunctionComponent = () => {
                                 // });
 
                                 let answerSaveBuffer = [];
-                                for (var i = 0; i < 6; i++) {
+                                for (var key in Response) {
+                                    console.log('keys for Response: ', key);
+                                    console.log('answer Label for Response: ', Response[key]);
+
                                     answerSaveBuffer.push(
                                         axios({
-                                            url: 'http://localhost:3000/api/answers/' + String(i),
+                                            url: 'http://localhost:3000/api/answers/' + String(key),
                                             method: 'post',
                                             data: {
                                                 participantId: '1',
-                                                answerLabel: Response[i],
+                                                answerLabel: Response[key],
                                             },
                                         }).then((response: any) => {
                                             console.log('answer saved: ', response);

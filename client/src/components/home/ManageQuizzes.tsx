@@ -4,8 +4,11 @@ import { auth, firestore } from '../utils/Firebase';
 import { Card } from 'reactstrap';
 import { Icon } from 'tabler-react';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom';
 
 const ManageQuizzes = () => {
+    // const history = useHistory();
+
     const [name, setName] = useState('');
     const [rooms, setRooms] = useState([{ eventKey: '12345678', name: 'Sample Quiz' }]);
 

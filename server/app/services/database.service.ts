@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as CONSTANTS from '../constants';
 import { data } from '../queries/populate-data';
 import { schema } from '../queries/schema';
+import { Question } from '../common/interfaces/question';
 
 @injectable()
 export class DatabaseService {
@@ -227,5 +228,53 @@ export class DatabaseService {
         const query = `SELECT * FROM ${this.SCHEMA_NAME}.AnswerEntry WHERE question_id = $1`;
         const values = [questionId]; 
         return this.pool.query(query, values);
+    }
+
+    async getAllAnswersByEventKey(eventKey: string): Promise<any> {
+        const questionsResult = await this.getAllQuestionsByEventKey(eventKey);
+        const questions: Question[] = questionsResult.rows.map((question: any) => ({
+            questionId: question.question_id,
+            correctAnswer: question.correct_answer,
+            questionLabel: question.question_label,
+            quizId: question.quiz_id,
+        }));
+
+        
+        let allAnswers = [];
+        
+        for (let i=0; i<questions.length; i++) {
+            const tempChoiceArray: string[] = [];
+            const choicesResult = await this.getAllChoicesByQuestion(String(questions[i].questionId));
+            if (choicesResult.rowCount > 0) {
+                console.log('Choice');
+                const queryChoices: any[] = choicesResult.rows.map((choice: any) => ({
+                    choiceLabel: choice.choice_label,
+                }));
+                                
+                for (let j = 0; j < queryChoices.length; j++) {
+                    tempChoiceArray.push(queryChoices[j].choiceLabel);
+                }
+            }
+
+            const answersResult = await this.getAllAnswersByQuestion(String(questions[i].questionId));
+            const queryAnswers: any[] = answersResult.rows.map((answer: any) => ({
+                answerLabel: answer.answer_label,
+            }));
+
+            const tempArray: string[] = [];
+            for (let j = 0; j < queryAnswers.length; j++) {
+                tempArray.push(queryAnswers[j].answerLabel);
+            }
+            console.log(tempArray);
+            allAnswers.push({
+                questionId: questions[i].questionId,
+                questionLabel: questions[i].questionLabel,
+                choices: tempChoiceArray,
+                answers: tempArray
+            })
+        }
+
+        return allAnswers;
+        
     }
 }

@@ -115,14 +115,14 @@ const ManageQuizzes = () => {
                                             <Button color="primary">Analytics</Button>
                                             {'          '}
                                             <Popup
-                                                trigger={<button className="button"> Share </button>}
+                                                trigger={<Button color="green"> Share </Button>}
                                                 modal
                                                 closeOnDocumentClick
                                             >
                                                 <span>
                                                     Event key: {room.eventKey}
                                                     <br></br>
-                                                    Link: <a>http://rengauge.com/quiz?number={room.eventKey}</a>
+                                                    Link: <a href={"http://rengauge.com/quiz?number=" + room.eventKey}>http://rengauge.com/quiz?number={room.eventKey}</a>
                                                     <br></br>
                                                     <QRCode value={ "http://rengauge.com/quiz?number=" + room.eventKey } />
                                                 </span>

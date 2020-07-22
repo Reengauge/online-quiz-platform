@@ -246,7 +246,6 @@ export class DatabaseService {
             const tempChoiceArray: string[] = [];
             const choicesResult = await this.getAllChoicesByQuestion(String(questions[i].questionId));
             if (choicesResult.rowCount > 0) {
-                console.log('Choice');
                 const queryChoices: any[] = choicesResult.rows.map((choice: any) => ({
                     choiceLabel: choice.choice_label,
                 }));
@@ -265,7 +264,6 @@ export class DatabaseService {
             for (let j = 0; j < queryAnswers.length; j++) {
                 tempArray.push(queryAnswers[j].answerLabel);
             }
-            console.log(tempArray);
             allAnswers.push({
                 questionId: questions[i].questionId,
                 questionLabel: questions[i].questionLabel,

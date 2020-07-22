@@ -115,7 +115,7 @@ const ManageQuizzes = () => {
                                             <Button color="primary">Analytics</Button>
                                             {'          '}
                                             <Popup
-                                                trigger={<button className="button"> Share </button>}
+                                                trigger={<Button color="green"> Share </Button>}
                                                 modal
                                                 closeOnDocumentClick
                                             >

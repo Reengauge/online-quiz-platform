@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Nav, Site, Container, Table, Button } from 'tabler-react';
 import { auth, firestore } from '../utils/Firebase';
 import { Card } from 'reactstrap';
+import axios from 'axios';
 
 // const logo = require('../assets/leasemagnets-logo.png');
 
@@ -27,6 +28,16 @@ const Navbar = () => {
         }
     };
 
+    function getRooms(choiceNum: any) {
+        return axios({
+            url: 'http://localhost:3000/api/rooms/presenter/',
+            method: 'get',
+        }).then((response: any) => {
+            console.log(response);
+            // return response.data;
+        });
+    }
+
     auth.onAuthStateChanged(function (user: any) {
         if (user) {
             var user: any = auth.currentUser;
@@ -45,7 +56,7 @@ const Navbar = () => {
     const accountDropdownProps = {
         // avatarURL: './demo/faces/female/25.jpg',
         name,
-        description: 'Administrator',
+        description: 'Teacher',
         options: [{ icon: 'log-out', value: 'Sign out', to: 'signout' }],
     };
 
@@ -72,6 +83,8 @@ const ManageQuizzes = () => {
     return (
         <>
             <Navbar />
+            <br />
+            <br />
             <Container>
                 <Card>
                     <Table>

@@ -4,30 +4,28 @@ import { auth, firestore } from '../utils/Firebase';
 import { Card } from 'reactstrap';
 import { Icon } from 'tabler-react';
 import axios from 'axios';
-// import Popup from './Popup';
 import Popup from "reactjs-popup";
 import '../stylesheets/managequizzes.css';
-// import { useHistory } from 'react-router-dom';
 
 const ManageQuizzes = () => {
-    // const history = useHistory();
 
     const [name, setName] = useState('');
-    const [rooms, setRooms] = useState([{ eventKey: '12345678', name: 'Sample Quiz' }]);
+    const [rooms, setRooms] = useState([]);
     var QRCode = require('qrcode.react');
 
     const Navbar = () => {
-        const loadName = async (uid: any) => {
+        /*async function loadName(uid: any) {
             try {
                 const doc: any = await firestore.collection('users').doc(uid).get();
 
                 if (doc.exists) {
                     setName(doc.data().name);
                 }
+                return;
             } catch (err) {
                 console.log('Error getting document:', err);
             }
-        };
+        };*/
 
         async function getRooms() {
             return axios({
@@ -48,22 +46,25 @@ const ManageQuizzes = () => {
                 var user: any = auth.currentUser;
                 if (user != null) {
                     var io = user.uid;
-                    // window.alert('success ' + io);
                     if (name === '') {
-                        loadName(io);
+                        setName('a'); //TODO: remove this line
+                        //await loadName(io);
+                        const doc: any = await firestore.collection('users').doc(io).get();
+
+                        if (doc.exists) {
+                            console.log('shit ', doc.data().name)
+                            setName(doc.data().name);
+                        }
                         var roomsData = await getRooms();
                         setRooms(roomsData);
-                        // console.log('rooms: ', rooms);
                     }
                 }
             } else {
-                // No user is signed in.
                 console.log('no user found');
             }
         });
 
         const accountDropdownProps = {
-            // avatarURL: './demo/faces/female/25.jpg',
             name,
             description: 'Teacher',
             options: [{ icon: 'log-out', value: 'Sign out', to: 'signout' }],
@@ -105,10 +106,10 @@ const ManageQuizzes = () => {
                             {rooms.map((room, index) => {
                                 return (
                                     <Table.Row>
-                                        <Table.Col>{room.eventKey}</Table.Col>
-                                        <Table.Col>{room.name}</Table.Col>
+                                        <Table.Col>{room['eventKey']}</Table.Col>
+                                        <Table.Col>{room['name']}</Table.Col>
                                         <Table.Col>
-                                            <a href={'/quiz?number=' + room.eventKey}>
+                                            <a href={'/quiz?number=' + room['eventKey']}>
                                                 <Button color="red">Take</Button>
                                             </a>
                                             {'          '}
@@ -120,16 +121,16 @@ const ManageQuizzes = () => {
                                                 closeOnDocumentClick
                                             >
                                                 <span>
-                                                    Event key: {room.eventKey}
+                                                    Event key: {room['eventKey']}
                                                     <br></br>
-                                                    Link: <a href={"http://rengauge.com/quiz?number=" + room.eventKey}>http://rengauge.com/quiz?number={room.eventKey}</a>
+                                                    Link: <a href={"http://rengauge.com/quiz?number=" + room['eventKey']}>http://rengauge.com/quiz?number={room['eventKey']}</a>
                                                     <br></br>
-                                                    <QRCode value={ "http://rengauge.com/quiz?number=" + room.eventKey } />
+                                                    <QRCode value={ "http://rengauge.com/quiz?number=" + room['eventKey'] } />
                                                 </span>
                                             </Popup>
                                             {'          '}
                                             <a
-                                                href={'https://twitter.com/intent/tweet?url=' + 'http://rengauge.com/quiz?number=' + room.eventKey}
+                                                href={'https://twitter.com/intent/tweet?url=' + 'http://rengauge.com/quiz?number=' + room['eventKey']}
                                                 data-show-count="false"
                                                 target="_blank"
                                             >

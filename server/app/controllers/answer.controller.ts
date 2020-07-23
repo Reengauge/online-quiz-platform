@@ -29,6 +29,33 @@ export class AnswerController {
                 });
         });
 
+        router.get('/question/:questionId', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getAllAnswersByQuestion(req.params.questionId)
+                .then((result: QueryResult) => {
+                    const answers: Answer[] = result.rows.map((answer: any) => ({
+                        answerLabel: answer.answer_label,
+                        questionId: answer.question_id,
+                        participantId: answer.participant_id,
+                    }));
+                    res.status(HttpStatus.OK).send(answers);
+                })
+                .catch((e: Error) => {
+                    res.status(HttpStatus.NOT_FOUND).send(e.message);
+                });
+        });
+
+        router.get('/room/:eventKey', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getAllAnswersByEventKey(req.params.eventKey)
+                .then((result: any) => {
+                    res.status(HttpStatus.OK).send(result);
+                })
+                .catch((e: Error) => {
+                    res.status(HttpStatus.NOT_FOUND).send(e.message);
+                });
+        });
+
         router.post('/:questionId', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .createAnswer(req.params.questionId, req.body.participantId, req.body.answerLabel)

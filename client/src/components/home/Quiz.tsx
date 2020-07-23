@@ -2,6 +2,7 @@ import { Conversation, Select, Question, Option } from 'react-conversation-form'
 import React, { useEffect, useState } from 'react';
 import '../stylesheets/quiz.css';
 import axios from 'axios';
+import { auth, firestore } from '../utils/Firebase';
 
 const endpoint = `http://localhost:3000/api/rooms/12345678/questions`;
 
@@ -21,7 +22,7 @@ function getChoice(choiceNum: any) {
         url: 'http://localhost:3000/api/choices/' + String(choiceNum),
         method: 'get',
     }).then((response) => {
-        // console.log(response);
+        console.log('choices: ', response);
         return response.data;
     });
 }
@@ -44,9 +45,18 @@ async function getQuiz(roomNum: any) {
     }).then(async (response) => {
         var quizObj = response.data;
         var roomInfo = await getRoom(roomNum);
-        // quizObject['subtitle'] = 'by ' + roomInfo['name'].toString();
-        quizObject['introText'] = "Hi there, it's " + roomInfo['presenterId'];
-        quizObject['header'] = 'Dynamic quiz title here';
+
+        const doc: any = await firestore.collection('users').doc(roomInfo['presenterId']).get();
+
+        if (doc.exists) {
+            quizObject['introText'] = "Hi there, it's " + doc.data().name;
+            quizObject['subtitle'] = 'by ' + doc.data().name;
+        } else {
+            quizObject['introText'] = 'Hi there!';
+            quizObject['subtitle'] = 'by Anonymous';
+        }
+
+        quizObject['header'] = roomInfo['name'];
 
         for (let i = 0; i < quizObj.length; i++) {
             console.log(quizObj[i]);
@@ -92,53 +102,43 @@ const Quiz: React.FunctionComponent = () => {
 
     return (
         <div>
-            {/*<div*/}
-            {/*    className="chat-header"*/}
-            {/*    style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999, borderRadius: '10px 10px 0px 0px' }}*/}
-            {/*>*/}
-            {/*    <h3>{quizObject.header}</h3>*/}
-            {/*    <p>{quizObject.subtitle}</p>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <button>Get Questions for quiz 1</button>*/}
-            {/*</div>*/}
-            {/*<div className="chat-screen">*/}
-            {/*    <Conversation*/}
-            {/*        className="conversation"*/}
-            {/*        onSubmit={(Response: any) => {*/}
-            {/*            console.log(Response);*/}
-            {/*            console.log('will post to: ', quizObject.id);*/}
-            {/*        }}*/}
-            {/*        chatOptions={{*/}
-            {/*            introText: quizObject.introText,*/}
-            {/*            submitText: quizObject.submitText,*/}
-            {/*        }}*/}
-            {/*    >*/}
-            {/*        {quizObject.questions.map((question, index) => {*/}
-            {/*            if (question.choices.length === 0) {*/}
-            {/*                return <Question id="index"> {question.question} </Question>;*/}
-            {/*            }*/}
-            {/*            return (*/}
-            {/*                <Select id={index} question={question.question}>*/}
-            {/*                    {question.choices.map((choice, index2) => (*/}
-            {/*                        <Option value={index2}>{choice}</Option>*/}
-            {/*                    ))}*/}
-            {/*                </Select>*/}
-            {/*            );*/}
-            {/*        })}*/}
-            {/*    </Conversation>*/}
-            {/*</div>*/}
+            {/* <div
+                className="chat-header"
+                style={{ backgroundColor: '#5344B2', height: '100px', color: 'white', zIndex: 9999999999, borderRadius: '10px 10px 0px 0px' }}
+            >
+                <h3>{quizObject.header}</h3>
+                <p>{quizObject.subtitle}</p>
+            </div>
+            <div>
+                <button>Get Questions for quiz 1</button>
+            </div>
+            <div className="chat-screen">
+                <Conversation
+                    className="conversation"
+                    onSubmit={(Response: any) => {
+                        console.log(Response);
+                    }}
+                    chatOptions={{
+                        introText: quizObject.introText,
+                        submitText: quizObject.submitText,
+                    }}
+                >
+                    {quizObject.questions.map((question, index) => {
+                        if (question.choices.length === 0) {
+                            return <Question id="index"> {question.question} </Question>;
+                        }
+                        return (
+                            <Select id={index} question={question.question}>
+                                {question.choices.map((choice, index2) => (
+                                    <Option value={index2}>{choice}</Option>
+                                ))}
+                            </Select>
+                        );
+                    })}
+                </Conversation>
+            </div> */}
             {isLoading ? (
-                <>
-                    {/*<button*/}
-                    {/*    onClick={() => {*/}
-                    {/*        console.log('thequizobject: ', quizObject);*/}
-                    {/*        setLoading(false);*/}
-                    {/*    }}*/}
-                    {/*>*/}
-                    {/*    Finish loading for Quiz {quizObject['id']}*/}
-                    {/*</button>*/}
-                </>
+                <>Loading your quiz...</>
             ) : (
                 <>
                     <div
@@ -148,17 +148,11 @@ const Quiz: React.FunctionComponent = () => {
                         <h3>{quizObject.header}</h3>
                         <p>{quizObject.subtitle}</p>
                     </div>
-                    <div>
-                        <button onClick={() => getQuiz('123456')} hidden>Get Questions for quiz 1</button>
-                        <button onClick={() => getChoice('1')} hidden>Get choices for question 1</button>
-                        <button onClick={() => console.log(quizObject)} hidden>Quiz object console log</button>
-                    </div>
                     <div className="chat-screen">
                         <Conversation
                             className="conversation"
                             onSubmit={async (Response: any) => {
                                 console.log(Response);
-                                console.log('will post to: ', quizObject.id);
 
                                 // Object.keys(Response).forEach(function (key) {
                                 //     Response[key].forEach(function (elem: any, index: any) {
@@ -167,14 +161,17 @@ const Quiz: React.FunctionComponent = () => {
                                 // });
 
                                 let answerSaveBuffer = [];
-                                for (var i = 0; i < 6; i++) {
+                                for (var key in Response) {
+                                    console.log('keys for Response: ', key);
+                                    console.log('answer Label for Response: ', Response[key]);
+
                                     answerSaveBuffer.push(
                                         axios({
-                                            url: 'http://localhost:3000/api/answers/' + String(i),
+                                            url: 'http://localhost:3000/api/answers/' + String(key),
                                             method: 'post',
                                             data: {
                                                 participantId: '1',
-                                                answerLabel: Response[i],
+                                                answerLabel: Response[key],
                                             },
                                         }).then((response: any) => {
                                             console.log('answer saved: ', response);

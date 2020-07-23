@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Button, Card, Container, Page, Form, Text } from 'tabler-react';
-import { Link, useHistory } from 'react-router-dom';
+import { Redirect, Link, useHistory } from 'react-router-dom';
 import 'tabler-react/dist/Tabler.css';
 import classes from '../stylesheets/SignIn.module.css';
 import { auth } from '../utils/Firebase';
@@ -12,6 +12,15 @@ const SignIn = () => {
     // Validate Inputs
     const isValid = !email || !password;
     const history = useHistory();
+
+    auth.onAuthStateChanged(function (user: any) {
+        if (user) {
+            history.push('/manage');
+            history.go(0);
+        } else {
+            // No user is signed in.
+        }
+    });
 
     const onSignIn = (e: any) => {
         e.preventDefault();

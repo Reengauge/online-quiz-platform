@@ -82,7 +82,7 @@ const ManageQuizzes = () => {
 
         return (
             <div className="navbar-menu">
-                <Site.Header imageURL={'https://i.imgur.com/u6424qJ.png'} href="/" accountDropdown={accountDropdownProps} align="left" />
+                <Site.Header imageURL={'https://i.imgur.com/PsrjhIN.png'} width="500" href="/" accountDropdown={accountDropdownProps} align="left" />
 
                 <Site.Nav items={items} />
             </div>

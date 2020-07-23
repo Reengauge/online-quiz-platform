@@ -4,17 +4,17 @@ import { auth, firestore } from '../utils/Firebase';
 import { Card } from 'reactstrap';
 import { Icon } from 'tabler-react';
 import axios from 'axios';
-import Popup from "reactjs-popup";
+import Popup from 'reactjs-popup';
 import '../stylesheets/managequizzes.css';
 
 const ManageQuizzes = () => {
-
     const [name, setName] = useState('');
     const [rooms, setRooms] = useState([]);
+    // const [rooms, setRooms] = useState([{ eventKey: '12345678', name: 'Sample Quiz' }]);
     var QRCode = require('qrcode.react');
 
     const Navbar = () => {
-        /*async function loadName(uid: any) {
+        async function loadName(uid: any) {
             try {
                 const doc: any = await firestore.collection('users').doc(uid).get();
 
@@ -25,7 +25,7 @@ const ManageQuizzes = () => {
             } catch (err) {
                 console.log('Error getting document:', err);
             }
-        };*/
+        }
 
         async function getRooms() {
             return axios({
@@ -46,15 +46,15 @@ const ManageQuizzes = () => {
                 var user: any = auth.currentUser;
                 if (user != null) {
                     var io = user.uid;
-                    if (name === '') {
-                        setName('a'); //TODO: remove this line
-                        //await loadName(io);
-                        const doc: any = await firestore.collection('users').doc(io).get();
+                    if (name.length === 0) {
+                        setName('Account'); //TODO: remove this line
+                        // loadName(io);
+                        // const doc: any = await firestore.collection('users').doc(io).get();
 
-                        if (doc.exists) {
-                            console.log('shit ', doc.data().name)
-                            setName(doc.data().name);
-                        }
+                        // if (doc.exists) {
+                        //     console.log('shit ', doc.data().name);
+                        //     setName(doc.data().name);
+                        // }
                         var roomsData = await getRooms();
                         setRooms(roomsData);
                     }
@@ -82,7 +82,7 @@ const ManageQuizzes = () => {
 
         return (
             <div className="navbar-menu">
-                <Site.Header imageURL={'https://i.imgur.com/u6424qJ.png'} href="/" accountDropdown={accountDropdownProps} align="left" />
+                <Site.Header imageURL={'https://i.imgur.com/PsrjhIN.png'} width="500" href="/" accountDropdown={accountDropdownProps} align="left" />
 
                 <Site.Nav items={items} />
             </div>
@@ -117,17 +117,16 @@ const ManageQuizzes = () => {
                                                 <Button color="primary">Analytics</Button>
                                             </a>
                                             {'          '}
-                                            <Popup
-                                                trigger={<Button color="green"> Share </Button>}
-                                                modal
-                                                closeOnDocumentClick
-                                            >
+                                            <Popup trigger={<Button color="green"> Share </Button>} modal closeOnDocumentClick>
                                                 <span>
                                                     Event key: {room['eventKey']}
                                                     <br></br>
-                                                    Link: <a href={"http://rengauge.com/quiz?number=" + room['eventKey']}>http://rengauge.com/quiz?number={room['eventKey']}</a>
+                                                    Link:{' '}
+                                                    <a href={'http://rengauge.com/quiz?number=' + room['eventKey']}>
+                                                        http://rengauge.com/quiz?number={room['eventKey']}
+                                                    </a>
                                                     <br></br>
-                                                    <QRCode value={ "http://rengauge.com/quiz?number=" + room['eventKey'] } />
+                                                    <QRCode value={'http://rengauge.com/quiz?number=' + room['eventKey']} />
                                                 </span>
                                             </Popup>
                                             {'          '}
@@ -148,7 +147,6 @@ const ManageQuizzes = () => {
                     </Table>
                 </Card>
             </Container>
-
         </>
     );
 };

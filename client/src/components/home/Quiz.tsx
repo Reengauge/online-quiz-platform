@@ -182,7 +182,13 @@ const Quiz: React.FunctionComponent = () => {
 
                                 await Promise.all(answerSaveBuffer).then((allAnswerResp) => {
                                     console.log('All answers saved: ', allAnswerResp);
+
+                                    alert('Your answers has been submitted');
+                                    window.location.href = '/';
+                                    return <h3>Your answers has been submitted</h3>;
                                 });
+
+                                return <h3>Your answers has been submitted</h3>;
                             }}
                             chatOptions={{
                                 introText: quizObject.introText,

@@ -4,13 +4,13 @@ import { auth, firestore } from '../utils/Firebase';
 import { Card } from 'reactstrap';
 import { Icon } from 'tabler-react';
 import axios from 'axios';
-import Popup from "reactjs-popup";
+import Popup from 'reactjs-popup';
 import '../stylesheets/managequizzes.css';
 
 const ManageQuizzes = () => {
-
     const [name, setName] = useState('');
     const [rooms, setRooms] = useState([]);
+    // const [rooms, setRooms] = useState([{ eventKey: '12345678', name: 'Sample Quiz' }]);
     var QRCode = require('qrcode.react');
 
     const Navbar = () => {
@@ -52,7 +52,7 @@ const ManageQuizzes = () => {
                         const doc: any = await firestore.collection('users').doc(io).get();
 
                         if (doc.exists) {
-                            console.log('shit ', doc.data().name)
+                            console.log('shit ', doc.data().name);
                             setName(doc.data().name);
                         }
                         var roomsData = await getRooms();
@@ -115,17 +115,16 @@ const ManageQuizzes = () => {
                                             {'          '}
                                             <Button color="primary">Analytics</Button>
                                             {'          '}
-                                            <Popup
-                                                trigger={<Button color="green"> Share </Button>}
-                                                modal
-                                                closeOnDocumentClick
-                                            >
+                                            <Popup trigger={<Button color="green"> Share </Button>} modal closeOnDocumentClick>
                                                 <span>
                                                     Event key: {room['eventKey']}
                                                     <br></br>
-                                                    Link: <a href={"http://rengauge.com/quiz?number=" + room['eventKey']}>http://rengauge.com/quiz?number={room['eventKey']}</a>
+                                                    Link:{' '}
+                                                    <a href={'http://rengauge.com/quiz?number=' + room['eventKey']}>
+                                                        http://rengauge.com/quiz?number={room['eventKey']}
+                                                    </a>
                                                     <br></br>
-                                                    <QRCode value={ "http://rengauge.com/quiz?number=" + room['eventKey'] } />
+                                                    <QRCode value={'http://rengauge.com/quiz?number=' + room['eventKey']} />
                                                 </span>
                                             </Popup>
                                             {'          '}
@@ -146,7 +145,6 @@ const ManageQuizzes = () => {
                     </Table>
                 </Card>
             </Container>
-
         </>
     );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Form, Text } from 'tabler-react';
+import { Button, Card, Form, Text, Icon } from 'tabler-react';
 import { Link, useHistory } from 'react-router-dom';
-import { auth, firestore } from '../utils/Firebase';
+import { auth, firestore, provider } from '../utils/Firebase';
 import classes from '../stylesheets/SignUp.module.css';
 
 const PersonalInfoSignup = () => {
@@ -19,6 +19,7 @@ const PersonalInfoSignup = () => {
 
     // Validate Inputs
     const isInvalid = !fullName || !email || !password || !confirmPassword;
+    const isInvalidGoogle = !fullName;
 
     const onSignUp = async (e: any) => {
         e.preventDefault();
@@ -79,6 +80,54 @@ const PersonalInfoSignup = () => {
         history.go(0);
     };
 
+    const onSignInGoogle = () => {
+        console.log('trying to sign in with google');
+        let isError = false;
+
+        if (isInvalidGoogle) {
+            setErrorPersonal('Please ensure name is inputted and then click Sign in with Google ');
+            isError = true;
+        }
+
+        if (isError) {
+            console.log('ending early');
+            return;
+        }
+
+        setErrorPersonal('');
+
+        auth.signInWithPopup(provider)
+            .then(function (result: any) {
+                // all personal errors have been checked and accounted for. We can now reset
+
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                // ...
+                const doc = {
+                    name: fullName,
+                    orgEmail: email,
+                };
+                console.log(doc);
+                firestore.collection('users').doc(user.uid).set(doc);
+
+                console.log(user);
+                history.push('/manage');
+                history.go(0);
+            })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
+    };
+
     // TODO: show this error to the user instead of just logging it
     useEffect(() => {
         console.log(errorPersonal);
@@ -127,6 +176,17 @@ const PersonalInfoSignup = () => {
                             Sign In
                         </Link>
                     </Text>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Button color="secondary" onClick={onSignInGoogle}>
+                            <Icon prefix="fa" name="user" /> Sign in with Google{' '}
+                        </Button>
+                    </div>
                 </Form>
             </Card.Body>
         </Card>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Grid, Button, Card, Container, Page, Form, Text } from 'tabler-react';
-import { Redirect, Link, useHistory } from 'react-router-dom';
+import { Icon, Grid, Button, Card, Container, Page, Form, Text } from 'tabler-react';
+import { Link, useHistory } from 'react-router-dom';
 import 'tabler-react/dist/Tabler.css';
 import classes from '../stylesheets/SignIn.module.css';
-import { auth } from '../utils/Firebase';
+import { auth, provider } from '../utils/Firebase';
 
 const SignIn = () => {
     // User Input States
@@ -36,6 +36,31 @@ const SignIn = () => {
                 history.go(0);
             })
             .catch((err) => console.log(err));
+    };
+
+    const onSignInGoogle = () => {
+        console.log('trying to sign in with google');
+        auth.signInWithPopup(provider)
+            .then(function (result: any) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                // ...
+                console.log(user);
+                history.push('/manage');
+                history.go(0);
+            })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
     };
 
     return (
@@ -77,6 +102,17 @@ const SignIn = () => {
                                                         </Link>
                                                     </Text> */}
                                                 </Form>
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        justifyContent: 'center',
+                                                        alignItems: 'center',
+                                                    }}
+                                                >
+                                                    <Button color="secondary" onClick={onSignInGoogle}>
+                                                        <Icon prefix="fa" name="user" /> Sign in with Google{' '}
+                                                    </Button>
+                                                </div>
                                             </Card.Body>
                                         </Card>
                                     </Grid.Col>

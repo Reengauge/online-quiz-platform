@@ -6,6 +6,10 @@ h1 :first-child {
     color: orange;
 }
 
+h1 span {
+    color: white;
+}
+
 h1 :last-child {
     text-decoration: underline;
 }
@@ -47,6 +51,7 @@ p {
     height: 600px; */
     font-family: 'Brandon Grotesque', sans-serif;
     text-align: center;
+    display: inline-block;
 }
 
 #number {
@@ -56,6 +61,7 @@ p {
     font-family: 'Brandon Grotesque', sans-serif;
     font-size: 18px;
     position: relative;
+    background-color: white;
 }
 
 ::placeholder {
@@ -92,3 +98,4 @@ input#number:focus {
 .signin a:hover {
     color: rgb(204, 204, 204);
 }
+

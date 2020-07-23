@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, Site, Container, Table, Button, Card } from 'tabler-react';
+import { Nav, Site, Container, Table, Button, Card, Tag } from 'tabler-react';
 import { auth, firestore } from '../utils/Firebase';
 import axios from 'axios';
 
 const Analytics = () => {
-
     const [name, setName] = useState('');
     const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
 
@@ -72,7 +71,6 @@ const Analytics = () => {
         getAllAnswers(urlParams.get('number')).then(async (qna) => {
             setQuestionsAndAnswers(qna);
         });
-
     }, []);
 
     async function getAllAnswers(eventKey: any) {
@@ -94,24 +92,67 @@ const Analytics = () => {
             <br />
             <br />
             <Container>
-            {questionsAndAnswers.map((qna, index) =>{
-                return (
-                    <Card>
-                    <Card.Header>
-                        <Card.Title>Question {(index + 1)}: {qna['questionLabel']}</Card.Title>
-                    </Card.Header>
-                    <Card.Body>
-                        Collected answers: <br />
-                        {qna['answers']}
-                    </Card.Body>
-                    <Card.Footer>
-                        Possible choices: <br />
-                        {qna['choices']}
-                    </Card.Footer>
-                </Card>
-                );
-            })}
-                
+                {questionsAndAnswers.map((qna: any, index: any) => {
+                    return (
+                        <Card>
+                            <Card.Header>
+                                <Card.Title>
+                                    Question {index + 1}: {qna['questionLabel']}
+                                </Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                                Collected answers: <br />
+                                {qna['answers']}
+
+                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 3],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'How Much Pizza I Ate Last Night',
+                       'width':400,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+
+                            </Card.Body>
+                            <Card.Footer>
+                                Possible choices: <br />
+                                <Tag.List>
+                                    {qna['choices'].map((choice: any, index: any) => {
+                                        return <Tag>{choice}</Tag>;
+                                    })}
+                                </Tag.List>
+                            </Card.Footer>
+                        </Card>
+                    );
+                })}
             </Container>
         </>
     );

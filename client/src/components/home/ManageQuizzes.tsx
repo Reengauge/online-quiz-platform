@@ -14,7 +14,7 @@ const ManageQuizzes = () => {
     var QRCode = require('qrcode.react');
 
     const Navbar = () => {
-        /*async function loadName(uid: any) {
+        async function loadName(uid: any) {
             try {
                 const doc: any = await firestore.collection('users').doc(uid).get();
 
@@ -25,7 +25,7 @@ const ManageQuizzes = () => {
             } catch (err) {
                 console.log('Error getting document:', err);
             }
-        };*/
+        }
 
         async function getRooms() {
             return axios({
@@ -47,14 +47,14 @@ const ManageQuizzes = () => {
                 if (user != null) {
                     var io = user.uid;
                     if (name === '') {
-                        setName('a'); //TODO: remove this line
-                        //await loadName(io);
-                        const doc: any = await firestore.collection('users').doc(io).get();
+                        setName('Account'); //TODO: remove this line
+                        // loadName(io);
+                        // const doc: any = await firestore.collection('users').doc(io).get();
 
-                        if (doc.exists) {
-                            console.log('shit ', doc.data().name);
-                            setName(doc.data().name);
-                        }
+                        // if (doc.exists) {
+                        //     console.log('shit ', doc.data().name);
+                        //     setName(doc.data().name);
+                        // }
                         var roomsData = await getRooms();
                         setRooms(roomsData);
                     }

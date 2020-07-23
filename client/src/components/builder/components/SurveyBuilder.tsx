@@ -41,6 +41,7 @@ const Navbar = () => {
 
             if (user != null) {
                 var io = user.uid;
+                setName('Account');
                 // window.alert('success ' + io);
                 loadName(io);
             }
@@ -59,7 +60,11 @@ const Navbar = () => {
 
     const items = (
         <Nav>
-            <Nav.Item active value="Manage Engaugements" icon="globe" to="/manage" />
+            <Nav.Item value="Manage Engaugements" icon="globe" />
+
+            <Nav.Item active icon="plus" to="/create">
+                Add Engaugement
+            </Nav.Item>
         </Nav>
     );
 

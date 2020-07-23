@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Nav, Site, Container, Table, Button, Card, Tag } from 'tabler-react';
 import { auth, firestore } from '../utils/Firebase';
 import axios from 'axios';
+import Chart from 'react-google-charts';
 
 const Analytics = () => {
     const [name, setName] = useState('');
@@ -27,6 +28,7 @@ const Analytics = () => {
                     var io = user.uid;
                     // window.alert('success ' + io);
                     if (name === '') {
+                        setName('Account');
                         loadName(io);
                     }
                 }
@@ -69,6 +71,17 @@ const Analytics = () => {
         const urlParams = new URLSearchParams(queryString);
 
         getAllAnswers(urlParams.get('number')).then(async (qna) => {
+            qna = qna.map((qnaEach: any, index: any) => {
+                if (qnaEach['choices'] !== []) {
+                    var counts: any = {};
+                    qnaEach['answers'].forEach((el: any) => (counts[el] = 1 + (counts[el] || 0)));
+                    qnaEach['uniqueAnswers'] = Object.entries(counts);
+                }
+
+                return qnaEach;
+            });
+
+            console.log('new qna: ', qna);
             setQuestionsAndAnswers(qna);
         });
     }, []);
@@ -86,6 +99,10 @@ const Analytics = () => {
             });
     }
 
+    function countUnique(iterable: any) {
+        return new Set(iterable).size;
+    }
+
     return (
         <>
             <Navbar />
@@ -93,6 +110,7 @@ const Analytics = () => {
             <br />
             <Container>
                 {questionsAndAnswers.map((qna: any, index: any) => {
+                    console.log('my qna ', index, ' : ', qna['uniqueAnswers']);
                     return (
                         <Card>
                             <Card.Header>
@@ -101,54 +119,60 @@ const Analytics = () => {
                                 </Card.Title>
                             </Card.Header>
                             <Card.Body>
-                                Collected answers: <br />
-                                {qna['answers']}
-
-                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
-
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
-
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
-
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
-
+                                {(() => {
+                                    if (qna['choices'].length === 0) {
+                                        return (
+                                            <div>
+                                                <Chart
+                                                    width={'500px'}
+                                                    chartType="Table"
+                                                    loader={<div>Loading Chart</div>}
+                                                    data={[
+                                                        [
+                                                            { type: 'string', label: 'Answers' },
+                                                            { type: 'number', label: 'Count' },
+                                                        ],
+                                                    ].concat(qna['uniqueAnswers'])}
+                                                    options={{
+                                                        showRowNumber: true,
+                                                    }}
+                                                    rootProps={{ 'data-testid': '1' }}
+                                                />
+                                            </div>
+                                        );
+                                    } else {
+                                        return (
+                                            <Chart
+                                                width={'500px'}
+                                                height={'300px'}
+                                                chartType="PieChart"
+                                                loader={<div>Loading Chart</div>}
+                                                data={[['Answer', 'Count']].concat(qna['uniqueAnswers'])}
+                                                options={{
+                                                    title: qna['questionLabel'],
+                                                }}
+                                            />
+                                        );
+                                    }
+                                })()}
                             </Card.Body>
                             <Card.Footer>
-                                Possible choices: <br />
-                                <Tag.List>
-                                    {qna['choices'].map((choice: any, index: any) => {
-                                        return <Tag>{choice}</Tag>;
-                                    })}
-                                </Tag.List>
+                                Possible Choices: <br />
+                                {(() => {
+                                    if (qna['choices'].length === 0) {
+                                        return <Tag>Free Response</Tag>;
+                                    } else {
+                                        return (
+                                            <>
+                                                <Tag.List>
+                                                    {qna['choices'].map((choice: any, index: any) => {
+                                                        return <Tag>{choice}</Tag>;
+                                                    })}
+                                                </Tag.List>
+                                            </>
+                                        );
+                                    }
+                                })()}
                             </Card.Footer>
                         </Card>
                     );

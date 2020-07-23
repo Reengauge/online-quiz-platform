@@ -46,7 +46,7 @@ const ManageQuizzes = () => {
                 var user: any = auth.currentUser;
                 if (user != null) {
                     var io = user.uid;
-                    if (name === '') {
+                    if (name.length === 0) {
                         setName('Account'); //TODO: remove this line
                         // loadName(io);
                         // const doc: any = await firestore.collection('users').doc(io).get();

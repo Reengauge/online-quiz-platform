@@ -113,7 +113,9 @@ const ManageQuizzes = () => {
                                                 <Button color="red">Take</Button>
                                             </a>
                                             {'          '}
-                                            <Button color="primary">Analytics</Button>
+                                            <a href={"/analytics?number=" + room['eventKey']}>
+                                                <Button color="primary">Analytics</Button>
+                                            </a>
                                             {'          '}
                                             <Popup
                                                 trigger={<Button color="green"> Share </Button>}

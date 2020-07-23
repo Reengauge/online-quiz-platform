@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // function getAllRooms() {
 //     return axios({
-//         url: 'http://localhost:3000/api/rooms/presenter/21dn9ca82dniad3/',
+//         url: 'http://34.69.228.253:3000/api/rooms/presenter/21dn9ca82dniad3/',
 //         method: 'get',
 //     }).then((response) => {
 //         response.data.map(rooms) => ({

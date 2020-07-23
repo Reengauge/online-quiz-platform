@@ -3,7 +3,7 @@ import Overview from './Overview';
 import '../stylesheets/homepage.css';
 import axios from 'axios';
 
-const endpoint = `http://localhost:3000/api/rooms/123456/questions`;
+const endpoint = `http://34.69.228.253:3000/api/rooms/123456/questions`;
 
 const sendGetRequest = () => {
     return axios({

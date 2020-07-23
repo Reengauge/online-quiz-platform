@@ -29,7 +29,7 @@ const ManageQuizzes = () => {
 
         async function getRooms() {
             return axios({
-                url: 'http://localhost:3000/api/rooms/presenter/' + String(auth.currentUser?.uid),
+                url: 'http://34.69.228.253:3000/api/rooms/presenter/' + String(auth.currentUser?.uid),
                 method: 'get',
             })
                 .then((response: any) => {
@@ -122,16 +122,16 @@ const ManageQuizzes = () => {
                                                     Event key: {room['eventKey']}
                                                     <br></br>
                                                     Link:{' '}
-                                                    <a href={'http://rengauge.com/quiz?number=' + room['eventKey']}>
-                                                        http://rengauge.com/quiz?number={room['eventKey']}
+                                                    <a href={'http://34.69.228.253/quiz?number=' + room['eventKey']}>
+                                                        http://34.69.228.253/quiz?number={room['eventKey']}
                                                     </a>
                                                     <br></br>
-                                                    <QRCode value={'http://rengauge.com/quiz?number=' + room['eventKey']} />
+                                                    <QRCode value={'http://34.69.228.253/quiz?number=' + room['eventKey']} />
                                                 </span>
                                             </Popup>
                                             {'          '}
                                             <a
-                                                href={'https://twitter.com/intent/tweet?url=' + 'http://rengauge.com/quiz?number=' + room['eventKey']}
+                                                href={'https://twitter.com/intent/tweet?url=' + 'http://34.69.228.253/quiz?number=' + room['eventKey']}
                                                 data-show-count="false"
                                                 target="_blank"
                                             >

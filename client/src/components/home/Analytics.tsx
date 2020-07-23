@@ -88,7 +88,7 @@ const Analytics = () => {
 
     async function getAllAnswers(eventKey: any) {
         return axios({
-            url: 'http://localhost:3000/api/answers/room/' + eventKey,
+            url: 'http://34.69.228.253:3000/api/answers/room/' + eventKey,
             method: 'get',
         })
             .then((response: any) => {

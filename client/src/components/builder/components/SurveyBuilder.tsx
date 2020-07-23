@@ -27,7 +27,7 @@ const Navbar = () => {
 
     function getRooms(choiceNum: any) {
         return axios({
-            url: 'http://localhost:3000/api/rooms/presenter/',
+            url: 'http://34.69.228.253:3000/api/rooms/presenter/',
             method: 'get',
         }).then((response: any) => {
             console.log(response);
@@ -92,7 +92,7 @@ export default function SurveyBuilder() {
         var questionRespArr = [];
         for (var i = 0; i < questions.length; i++) {
             var questionRespData = await axios({
-                url: 'http://localhost:3000/api/questions/',
+                url: 'http://34.69.228.253:3000/api/questions/',
                 method: 'post',
                 data: {
                     questionLabel: questions[i].text,
@@ -112,7 +112,7 @@ export default function SurveyBuilder() {
 
     function createQuiz(roomId: any) {
         return axios({
-            url: 'http://localhost:3000/api/rooms/' + String(roomId) + '/quizzes',
+            url: 'http://34.69.228.253:3000/api/rooms/' + String(roomId) + '/quizzes',
             method: 'post',
             data: {
                 maxDuration: 600,
@@ -126,7 +126,7 @@ export default function SurveyBuilder() {
 
     function createRoom() {
         return axios({
-            url: 'http://localhost:3000/api/rooms/',
+            url: 'http://34.69.228.253:3000/api/rooms/',
             method: 'post',
             data: {
                 presenterId: auth.currentUser?.uid,

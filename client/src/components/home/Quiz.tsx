@@ -4,7 +4,7 @@ import '../stylesheets/quiz.css';
 import axios from 'axios';
 import { auth, firestore } from '../utils/Firebase';
 
-const endpoint = `http://localhost:3000/api/rooms/12345678/questions`;
+const endpoint = `http://34.69.228.253:3000/api/rooms/12345678/questions`;
 
 var quizObject = {
     id: '12345678',
@@ -19,7 +19,7 @@ var quizObject = {
 
 function getChoice(choiceNum: any) {
     return axios({
-        url: 'http://localhost:3000/api/choices/' + String(choiceNum),
+        url: 'http://34.69.228.253:3000/api/choices/' + String(choiceNum),
         method: 'get',
     }).then((response) => {
         console.log('choices: ', response);
@@ -29,7 +29,7 @@ function getChoice(choiceNum: any) {
 
 function getRoom(choiceNum: any) {
     return axios({
-        url: 'http://localhost:3000/api/rooms/' + String(choiceNum),
+        url: 'http://34.69.228.253:3000/api/rooms/' + String(choiceNum),
         method: 'get',
     }).then((response) => {
         // console.log(response);
@@ -40,7 +40,7 @@ function getRoom(choiceNum: any) {
 // get Quiz Room Number, and dynamically build the quiz choices
 async function getQuiz(roomNum: any) {
     return axios({
-        url: `http://localhost:3000/api/rooms/` + roomNum + `/questions`,
+        url: `http://34.69.228.253:3000/api/rooms/` + roomNum + `/questions`,
         method: 'get',
     }).then(async (response) => {
         var quizObj = response.data;
@@ -167,7 +167,7 @@ const Quiz: React.FunctionComponent = () => {
 
                                     answerSaveBuffer.push(
                                         axios({
-                                            url: 'http://localhost:3000/api/answers/' + String(key),
+                                            url: 'http://34.69.228.253:3000/api/answers/' + String(key),
                                             method: 'post',
                                             data: {
                                                 participantId: '1',
